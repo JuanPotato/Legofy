@@ -1,6 +1,6 @@
 from subprocess import call
+from PIL import Image
 import shutil
-import Image
 import sys
 import os
 
@@ -8,7 +8,7 @@ brickh = 30
 brickw = 30
 brick = "brick30.png"
 
-cmdargs = str(sys.argv)
+cmdargs = sys.argv
 
 if len(cmdargs) < 2:
 	print("No input file specified, please use the command \"python legoGif.py gifname.gif\" to create a legofied version of \"gifname.gif\". It will automatically be saved as \"lego_gifname.gif\"")
@@ -110,8 +110,8 @@ for file in os.listdir("./tmp_frames"):
 
 # make new gif "convert -delay 10 -loop 0 *.png animation.gif"
 delay = gifImage.info["duration"] / len(os.listdir("./tmp_frames"))
-# call(["convert", "-delay", str(delay/10), "-loop", "0", "./tmp_frames/*.png", "animation.gif"])
-print(["convert", "-delay", str( delay / 10 ), "-loop", "0", "./tmp_frames/*.png", "lego_" + filename])
+call(["convert", "-delay", str(delay/10), "-loop", "0", "./tmp_frames/*.png", "lego_" + filename])
+print("Creating gif with filename\"lego_{}\"".format(filename))
 
 shutil.rmtree('./tmp_frames')
 
