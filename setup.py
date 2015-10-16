@@ -11,7 +11,7 @@ setup(
     install_requires=['pillow', 'click'],
     include_package_data=True,
     maintainer='Juan Potato',
-    description=('Tools for maintaining Juju charms'),
+    description=('Make any image or GIF LEGOIFIED!'),
     url='https://github.com/JuanPotato/Gif-Lego-ify',
     classifiers=[
         "Development Status :: 3 - Alpha",
