@@ -2,7 +2,7 @@
 
 ### Requirments
 * Python (2.7 tested, not sure about 3+)
-* Pytohn Pillow
+* Python Pillow
 * imagemagick (except windows, binary included because reasons)
 
 ### Bugs
