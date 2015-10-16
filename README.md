@@ -1,4 +1,4 @@
-# Gif-Lego-ify
+# Legofy
 
 ### Requirments
 * Python (2.7 tested, not sure about 3+)
@@ -13,10 +13,10 @@
 
 ### Examples (it is ok if any of the images are not small, the program automatically shrinks them down)
 * Animated gif 
-  * ![gif.gif](https://github.com/JuanPotato/Gif-Lego-ify/raw/master/gif.gif)
+  * ![gif.gif](https://github.com/JuanPotato/Legofy/raw/master/gif.gif)
   * `python legoify.py gif.gif` will result with a legofied gif at `lego_gif.gif`
-  * [lego_gif.gif](https://github.com/JuanPotato/Gif-Lego-ify/raw/master/lego_gif.gif) (link because huge gif not a good idea to load)
+  * [lego_gif.gif](https://github.com/JuanPotato/Legofy/raw/master/lego_gif.gif) (link because huge gif not a good idea to load)
 * Static image
-  * ![brick.png](https://github.com/JuanPotato/Gif-Lego-ify/raw/master/brick.png)
+  * ![brick.png](https://github.com/JuanPotato/Legofy/raw/master/brick.png)
   * `python legoify.py brick.png` will result with a legofied gif at `lego_brick.png
-  * ![lego_brick.png](https://github.com/JuanPotato/Gif-Lego-ify/raw/master/lego_brick.png)`
+  * ![lego_brick.png](https://github.com/JuanPotato/Legofy/raw/master/lego_brick.png)`

@@ -1,6 +1,6 @@
 import os
 import click
-import legoify
+import legofy
 
 @click.command()
 @click.option('--brick', default=None, type=click.Path(dir_okay=False,
@@ -10,4 +10,4 @@ import legoify
 def main(brick, image, output):
     if not brick:
         here = os.path.abspath(os.path.dirname(__file__))
-    legoify.main(image, brick=os.path.join(here, 'bricks', 'brick.png'))
+    legofy.main(image, brick=os.path.join(here, 'bricks', 'brick.png'))
