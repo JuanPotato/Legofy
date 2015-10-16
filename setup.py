@@ -8,7 +8,7 @@ setup(
     version="0.0.0",
     packages=find_packages(
         exclude=["*.tests", "*.tests.*", "tests.*", "tests"]),
-    install_requires=['pillow'],
+    install_requires=['pillow', 'click'],
     include_package_data=True,
     maintainer='Juan Potato',
     description=('Tools for maintaining Juju charms'),
