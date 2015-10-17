@@ -3,7 +3,7 @@
 ### What is it?
 Legofy is a python program that takes a static image or gif and makes it so that it looks as if it was created by legos.
 
-Ex: [before](https://github.com/JuanPotato/Legofy/blob/master/tests/image.png?raw=true) and [after](https://github.com/JuanPotato/Legofy/blob/master/tests/lego_image.png?raw=true)
+Ex: [before](https://github.com/JuanPotato/Legofy/blob/master/tests/image.jpg?raw=true) and [after](https://github.com/JuanPotato/Legofy/blob/master/tests/lego_image.png?raw=true)
 
 ### Requirments
 * Python
