@@ -1,7 +1,7 @@
-# Legofy
+# Legofy [![Build Status](https://travis-ci.org/JuanPotato/Legofy.svg?branch=master)](https://travis-ci.org/JuanPotato/Legofy)
 
 ### Requirments
-* Python (2.7 tested, not sure about 3+)
+* Python
 * Python Pillow
 * imagemagick (except windows, binary included because reasons)
 

@@ -88,7 +88,7 @@ def main(filename, brick, width=30, height=30, scale=1):
     
     fileDir = filename.split(divider)
 
-    newFilename = "lego_{}".format(fileDir[len(fileDir) - 1])
+    newFilename = "lego_{0}".format(fileDir[len(fileDir) - 1])
 
     del fileDir[len(fileDir) - 1]
     fileDir = divider.join(fileDir)
@@ -103,44 +103,44 @@ def main(filename, brick, width=30, height=30, scale=1):
         newSize = (int(round(newSize[0] / scale)), int(round(newSize[1] / scale)))
 
     if static:
-        print("Animated gif detected, will now legofy each frame and recreate the gif and save as lego_{}".format(filename))
+        print("Animated gif detected, will now legofy each frame and recreate the gif and save as lego_{0}".format(filename))
         # check if dir exists, if not, make it
         if not os.path.exists("./tmp_frames/"):
             os.makedirs("./tmp_frames/")
 
         # for each frame in the gif, save it
         for i, frame in enumerate(iter_frames(baseImage)):
-            frame.save('./tmp_frames/frame_{}.png'.format(("0" * (4 - len(str(i)))) + str(i)), **frame.info)
+            frame.save('./tmp_frames/frame_{0}.png'.format(("0" * (4 - len(str(i)))) + str(i)), **frame.info)
 
         # make lego images from gif
         for file in os.listdir("./tmp_frames"):
             if file.endswith(".png"):
-                print("Working on {}".format(file))
-                im = Image.open("./tmp_frames/{}".format(file)).convert("RGBA")
+                print("Working on {0}".format(file))
+                im = Image.open("./tmp_frames/{0}".format(file)).convert("RGBA")
                 if scale != 1:
                     im.thumbnail(newSize, Image.ANTIALIAS)
-                makeLegoImage(im, brick).save("./tmp_frames/{}".format(file))
+                makeLegoImage(im, brick).save("./tmp_frames/{0}".format(file))
 
         # make new gif "convert -delay 10 -loop 0 *.png animation.gif"
         delay = str(baseImage.info["duration"] / 10)
     
-        command = "convert -delay {} -loop 0 ./tmp_frames/*.png lego_{}".format(delay, filename)
+        command = "convert -delay {0} -loop 0 ./tmp_frames/*.png lego_{1}".format(delay, filename)
 
         print(command)
         call(command.split(" "))
-        print("Creating gif with filename\"lego_{}\"".format(filename))
+        print("Creating gif with filename\"lego_{0}\"".format(filename))
         shutil.rmtree('./tmp_frames')
     else:
         newFilename = newFilename.split(".")
         newFilename[len(newFilename) - 1] = "png"
         newFilename = ".".join(newFilename)
         
-        fullname = "{}{}{}".format(fileDir, divider, newFilename)
+        fullname = "{0}{1}{2}".format(fileDir, divider, newFilename)
         
         baseImage.convert("RGBA")
         if scale != 1:
             baseImage.thumbnail(newSize, Image.ANTIALIAS)
-        print("Static image detected, will now legofy and save as {}".format(fullname))
+        print("Static image detected, will now legofy and save as {0}".format(fullname))
         makeLegoImage(baseImage, brick).save(fullname)
 
     print("Finished!")

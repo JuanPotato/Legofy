@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='legofy',
-    version="0.0.0",
+    version="0.0.1",
     packages=["legofy"],
     install_requires=['pillow', 'click'],
     include_package_data=True,
