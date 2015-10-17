@@ -64,7 +64,6 @@ def makeLegoImage(baseImage, brick, width=30, height=30):
     for x in range(baseWidth):
         for y in range(baseHeight):
             bp = basePoa[x, y]
-            isinstance(bp, (int, long))
             legoImage.paste(makeLegoBrick(brick, bp[0], bp[1], bp[2]), (x * width, y * height, (x + 1) * width, (y + 1) * height))
     return legoImage
 
