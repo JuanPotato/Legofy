@@ -6,8 +6,7 @@ from setuptools import setup, find_packages
 setup(
     name='legofy',
     version="0.0.0",
-    packages=find_packages(
-        exclude=["*.tests", "*.tests.*", "tests.*", "tests"]),
+    packages=["legofy"],
     install_requires=['pillow', 'click'],
     include_package_data=True,
     maintainer='Juan Potato',
@@ -22,4 +21,6 @@ setup(
             'legofy = legofy.cli:main',
         ],
     },
+    test_suite='nose.collector',
+    tests_require=['nose'],
 )
