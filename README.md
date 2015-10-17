@@ -2,7 +2,7 @@
 
 ### Requirments
 * Python
-* Python Pillow
+* Python modules: Pillow, click
 * imagemagick (except windows, binary included because reasons)
 
 ### Bugs
@@ -12,11 +12,4 @@
 * Make an optional argument to only allow official lego colors
 
 ### Examples (it is ok if any of the images are not small, the program automatically shrinks them down)
-* Animated gif 
-  * ![gif.gif](https://github.com/JuanPotato/Legofy/raw/master/gif.gif)
-  * `python legoify.py gif.gif` will result with a legofied gif at `lego_gif.gif`
-  * [lego_gif.gif](https://github.com/JuanPotato/Legofy/raw/master/lego_gif.gif) (link because huge gif not a good idea to load)
-* Static image
-  * ![brick.png](https://github.com/JuanPotato/Legofy/raw/master/brick.png)
-  * `python legoify.py brick.png` will result with a legofied gif at `lego_brick.png
-  * ![lego_brick.png](https://github.com/JuanPotato/Legofy/raw/master/lego_brick.png)`
+* Need to make new ones, soon
