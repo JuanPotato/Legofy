@@ -21,6 +21,9 @@ setup(
             'legofy = legofy.cli:main',
         ],
     },
+    package_data = {
+        'bricks': ['*.png'],
+    },
     test_suite='nose.collector',
     tests_require=['nose'],
 )
