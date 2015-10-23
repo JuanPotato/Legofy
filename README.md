@@ -16,5 +16,12 @@ Ex: [before](https://github.com/JuanPotato/Legofy/blob/master/tests/image.jpg?ra
 ### TODO
 * Make an optional argument to only allow official lego colors
 
+### Quickstart
+    git clone git@github.com:JuanPotato/Legofy.git
+    cd Legofy
+    pip install -r requirements.txt
+    python setup.py install
+    legofy my-image.jpg
+
 ### Examples (it is ok if any of the images are not small, the program automatically shrinks them down)
 * Need to make new ones, soon
