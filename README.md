@@ -5,7 +5,7 @@ Legofy is a python program that takes a static image or gif and makes it so that
 
 Ex: [before](https://github.com/JuanPotato/Legofy/blob/master/tests/image.jpg?raw=true) and [after](https://github.com/JuanPotato/Legofy/blob/master/tests/lego_image.png?raw=true)
 
-### Requirments
+### Requirements
 * Python
 * Python modules: Pillow, click
 * imagemagick ~(except windows, binary included because reasons)~
