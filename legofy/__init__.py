@@ -77,22 +77,11 @@ def is_animated(im):
 
 
 def main(filename, brick, width=30, height=30, scale=1):
-    divider = "\\"
-    if "\\" not in filename:
-        divider = "/"
-    
     # open gif to start splitting
     baseImage = Image.open(filename)
     newSize = baseImage.size
     static = filename.lower().endswith(".gif") and is_animated(baseImage)
-    
-    fileDir = filename.split(divider)
-
-    newFilename = "lego_{0}".format(fileDir[len(fileDir) - 1])
-
-    del fileDir[len(fileDir) - 1]
-    fileDir = divider.join(fileDir)
-    
+    newFilename = '{0}/lego_{1}'.format(*os.path.split(filename))
 
     if newSize[0] > 30 or newSize[1] > 30:
         if newSize[0] < newSize[1]:
@@ -124,7 +113,7 @@ def main(filename, brick, width=30, height=30, scale=1):
         # make new gif "convert -delay 10 -loop 0 *.png animation.gif"
         delay = str(baseImage.info["duration"] / 10)
     
-        command = "convert -delay {0} -loop 0 ./tmp_frames/*.png lego_{1}".format(delay, filename)
+        command = "convert -delay {0} -loop 0 ./tmp_frames/*.png {1}".format(delay, newFilename)
 
         print(command)
         call(command.split(" "))
@@ -135,12 +124,10 @@ def main(filename, brick, width=30, height=30, scale=1):
         newFilename[len(newFilename) - 1] = "png"
         newFilename = ".".join(newFilename)
         
-        fullname = "{0}{1}{2}".format(fileDir, divider, newFilename)
-        
         baseImage.convert("RGBA")
         if scale != 1:
             baseImage.thumbnail(newSize, Image.ANTIALIAS)
-        print("Static image detected, will now legofy and save as {0}".format(fullname))
-        makeLegoImage(baseImage, brick).save(fullname)
+        print("Static image detected, will now legofy and save as {0}".format(newFilename))
+        makeLegoImage(baseImage, brick).save(newFilename)
 
     print("Finished!")
