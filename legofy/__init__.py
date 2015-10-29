@@ -1,7 +1,6 @@
 from PIL import Image
 from subprocess import call
 import shutil
-import sys
 import os
 
 
@@ -81,7 +80,11 @@ def main(filename, brick, width=30, height=30, scale=1):
     baseImage = Image.open(filename)
     newSize = baseImage.size
     static = filename.lower().endswith(".gif") and is_animated(baseImage)
-    newFilename = '{0}/lego_{1}'.format(*os.path.split(filename))
+    path, name = os.path.split(filename)
+    if path == "":
+        newFilename = 'lego_{0}'.format(name)
+    else:
+        newFilename = '{0}/lego_{1}'.format(path, name)
 
     if newSize[0] > 30 or newSize[1] > 30:
         if newSize[0] < newSize[1]:
