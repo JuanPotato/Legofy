@@ -76,17 +76,12 @@ def is_animated(im):
         return False
 
 
-def main(filename, hd, brick, width=30, height=30, scale=1):
+def main(filename, sizeScale, brick, width=30, height=30, scale=1):
     # open gif to start splitting
     baseImage = Image.open(filename)
     newSize = baseImage.size
     static = filename.lower().endswith(".gif") and is_animated(baseImage)
     newFilename = '{0}/lego_{1}'.format(*os.path.split(filename))
-
-    if hd:
-        sizeScale = 120
-    else:
-        sizeScale = 30
 
     if newSize[0] > sizeScale or newSize[1] > sizeScale:
         if newSize[0] < newSize[1]:
