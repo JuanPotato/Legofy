@@ -76,7 +76,7 @@ def is_animated(im):
         return False
 
 
-def main(filename, brick, width=30, height=30, scale=1):
+def main(filename, brick, bricknum, width=30, height=30, scale=1):
     # open gif to start splitting
     baseImage = Image.open(filename)
     newSize = baseImage.size
@@ -85,9 +85,9 @@ def main(filename, brick, width=30, height=30, scale=1):
 
     if newSize[0] > 30 or newSize[1] > 30:
         if newSize[0] < newSize[1]:
-            scale = newSize[1] / 30
+            scale = newSize[1] / bricknum
         else:
-            scale = newSize[0] / 30
+            scale = newSize[0] / bricknum
     
         newSize = (int(round(newSize[0] / scale)), int(round(newSize[1] / scale)))
 
@@ -123,6 +123,7 @@ def main(filename, brick, width=30, height=30, scale=1):
         newFilename = newFilename.split(".")
         newFilename[len(newFilename) - 1] = "png"
         newFilename = ".".join(newFilename)
+        print newFilename
         
         baseImage.convert("RGBA")
         if scale != 1:
