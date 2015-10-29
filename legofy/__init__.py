@@ -42,7 +42,7 @@ def overUnder(value, min=-100, max=100):
 
  
 # create a lego brick from a single color
-def makeLegoBrick(brick, overlayRed, overlayGreen, overlayBlue):
+def makeLegoBrick(brickImage, overlayRed, overlayGreen, overlayBlue):
     # colorizing the brick function
     def colorize(blockColors):
         newRed = overUnder(133 - overlayRed)
@@ -51,11 +51,13 @@ def makeLegoBrick(brick, overlayRed, overlayGreen, overlayBlue):
         
         return (blockColors[0] - newRed, blockColors[1] - newGreen, blockColors[2] - newBlue, 255)
     
-    return applyEffect(Image.open(brick), colorize)
+    return applyEffect(brickImage.copy(), colorize)
 
 
 # create a lego version of an image from an image
-def makeLegoImage(baseImage, brick, width=30, height=30):
+def makeLegoImage(baseImage, brickFilename):
+    brickImage = Image.open(brickFilename)
+    width, height = brickImage.size
     baseWidth, baseHeight = baseImage.size
     basePoa = baseImage.load()
 
@@ -64,7 +66,7 @@ def makeLegoImage(baseImage, brick, width=30, height=30):
     for x in range(baseWidth):
         for y in range(baseHeight):
             bp = basePoa[x, y]
-            legoImage.paste(makeLegoBrick(brick, bp[0], bp[1], bp[2]), (x * width, y * height, (x + 1) * width, (y + 1) * height))
+            legoImage.paste(makeLegoBrick(brickImage, bp[0], bp[1], bp[2]), (x * width, y * height, (x + 1) * width, (y + 1) * height))
     return legoImage
 
 # check if image is animated
