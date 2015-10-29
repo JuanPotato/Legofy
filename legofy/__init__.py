@@ -81,7 +81,10 @@ def main(filename, brick, width=30, height=30, scale=1):
     baseImage = Image.open(filename)
     newSize = baseImage.size
     static = filename.lower().endswith(".gif") and is_animated(baseImage)
-    newFilename = '{0}/lego_{1}'.format(*os.path.split(filename))
+    baseDir, origFilename = os.path.split(filename)
+    if not baseDir:
+        baseDir = '.'
+    newFilename = '{dir}/lego_{name}'.format(dir=baseDir, name=origFilename)
 
     if newSize[0] > 30 or newSize[1] > 30:
         if newSize[0] < newSize[1]:
@@ -123,6 +126,7 @@ def main(filename, brick, width=30, height=30, scale=1):
         newFilename = newFilename.split(".")
         newFilename[len(newFilename) - 1] = "png"
         newFilename = ".".join(newFilename)
+        print("Saving legofied file to {new_file}".format(new_file=newFilename))
         
         baseImage.convert("RGBA")
         if scale != 1:
