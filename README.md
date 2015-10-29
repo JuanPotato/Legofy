@@ -9,14 +9,16 @@ Legofy is a python program that takes a static image or gif and makes it so that
 ### Requirements
 * Python
 * Python modules: Pillow, click
-* imagemagick ~(except windows, binary included because reasons)~
+* imagemagick
 
 ### Bugs
-* None present
-* If you find a bug, please message me on [ ]
+* If you find a bug, please message me on [Reddit](http://www.reddit.com/message/compose/?to=juan_potato), [Imgur](http://imgur.com/user/juanpotato), [Telegram](https://telegram.me/awkward_potato), or [email me](mailto:juanpotatodev@gmail.com)
 
 ### TODO
 * Make an optional argument to only allow official lego colors
 
-### Examples (it is ok if any of the images are not small, the program automatically shrinks them down)
-* Need to make new ones, soon
+### Quickstart
+* `git clone https://github.com/JuanPotato/Legofy.git`
+* `cd Legofy`
+* `python setup.py install`
+* `legofy image.jpg` - anywhere
