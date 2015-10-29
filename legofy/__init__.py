@@ -84,20 +84,16 @@ def main(filename, hd, brick, width=30, height=30, scale=1):
     newFilename = '{0}/lego_{1}'.format(*os.path.split(filename))
 
     if hd:
-        if newSize[0] > 120 or newSize[1] > 120:
-            if newSize[0] < newSize[1]:
-                scale = newSize[1] / 120
-            else:
-                scale = newSize[0] / 120
-            newSize = (int(round(newSize[0] / scale)), int(round(newSize[1] / scale)))
+        sizeScale = 120
     else:
-        if newSize[0] > 30 or newSize[1] > 30:
-            if newSize[0] < newSize[1]:
-                scale = newSize[1] / 30
-            else:
-                scale = newSize[0] / 30
+        sizeScale = 30
 
-            newSize = (int(round(newSize[0] / scale)), int(round(newSize[1] / scale)))
+    if newSize[0] > sizeScale or newSize[1] > sizeScale:
+        if newSize[0] < newSize[1]:
+            scale = newSize[1] / sizeScale
+        else:
+            scale = newSize[0] / sizeScale
+        newSize = (int(round(newSize[0] / scale)), int(round(newSize[1] / scale)))
 
     if static:
         print("Animated gif detected, will now legofy each frame and recreate the gif and save as lego_{0}".format(filename))
