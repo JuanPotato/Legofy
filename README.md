@@ -12,7 +12,8 @@ Legofy is a python program that takes a static image or gif and makes it so that
 * imagemagick ~(except windows, binary included because reasons)~
 
 ### Bugs
-* nothing
+* None present
+* If you find a bug, please message me on [ ]
 
 ### TODO
 * Make an optional argument to only allow official lego colors
