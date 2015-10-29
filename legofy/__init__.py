@@ -3,6 +3,7 @@ from subprocess import call
 import shutil
 import sys
 import os
+import math
 
 
 # from the color list at http://lego.wikia.com/wiki/Colour_Palette
@@ -128,8 +129,7 @@ def makeLegoImage(baseImage, brick, width=30, height=30):
 
     for x in range(baseWidth):
         for y in range(baseHeight):
-            bp = basePoa[x, y]
-            bp = getNearestColor(bp)
+            bp = getNearestColor(basePoa[x, y])
             legoImage.paste(makeLegoBrick(brick, bp[0], bp[1], bp[2]), (x * width, y * height, (x + 1) * width, (y + 1) * height))
     return legoImage
 
