@@ -82,9 +82,9 @@ def main(filename, hd, brick, width=30, height=30, scale=1):
     newSize = baseImage.size
     static = filename.lower().endswith(".gif") and is_animated(baseImage)
     newFilename = '{0}/lego_{1}'.format(*os.path.split(filename))
-    #change values underneath to change image definition
+
     if hd:
-        if newSize[0] > 30 or newSize[1] > 30:
+        if newSize[0] > 120 or newSize[1] > 120:
             if newSize[0] < newSize[1]:
                 scale = newSize[1] / 120
             else:
