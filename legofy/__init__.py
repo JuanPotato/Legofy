@@ -81,7 +81,10 @@ def main(filename, brick, width=30, height=30, scale=1):
     baseImage = Image.open(filename)
     newSize = baseImage.size
     static = filename.lower().endswith(".gif") and is_animated(baseImage)
-    newFilename = '{0}/lego_{1}'.format(*os.path.split(filename))
+    newFilename = os.path.join(
+        os.path.dirname(filename),
+        'lego_{0}'.format(os.path.basename(filename))
+    )
 
     if newSize[0] > 30 or newSize[1] > 30:
         if newSize[0] < newSize[1]:
