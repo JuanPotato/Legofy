@@ -67,20 +67,11 @@ def makeLegoImage(baseImage, brick, width=30, height=30):
             legoImage.paste(makeLegoBrick(brick, bp[0], bp[1], bp[2]), (x * width, y * height, (x + 1) * width, (y + 1) * height))
     return legoImage
 
-# check if image is animated
-def is_animated(im):
-    try:
-        im.seek(1)
-        return True
-    except EOFError:
-        return False
-
-
 def main(filename, brick, width=30, height=30, scale=1):
     # open gif to start splitting
     baseImage = Image.open(filename)
     newSize = baseImage.size
-    static = filename.lower().endswith(".gif") and is_animated(baseImage)
+    static = filename.lower().endswith(".gif") and baseImage.is_animated
     newFilename = '{0}/lego_{1}'.format(*os.path.split(filename))
 
     if newSize[0] > 30 or newSize[1] > 30:
