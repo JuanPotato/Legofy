@@ -1,9 +1,10 @@
+from __future__ import unicode_literals
+
 from PIL import Image
 from subprocess import call
 import shutil
 import sys
 import os
-
 
 # function that iterates over the gif's frames
 def iter_frames(imageToIter):
@@ -25,10 +26,12 @@ def iter_frames(imageToIter):
 # small function to apply an effect over an entire image
 def applyEffect(image, effect):
     width, height = image.size
-    poa = image.load()
+    pao = image.load()
     for x in range(width):
         for y in range(height):
-            poa[x, y] = effect(poa[x, y])
+            pao[x, y] = effect(pao[x, y])
+    
+    del pao
     return image
 
 
@@ -55,7 +58,7 @@ def makeLegoBrick(brick, overlayRed, overlayGreen, overlayBlue):
 
 
 # create a lego version of an image from an image
-def makeLegoImage(baseImage, brick, width=30, height=30):
+def makeLegoImage(baseImage, brick, width, height):
     baseWidth, baseHeight = baseImage.size
     basePoa = baseImage.load()
 
@@ -65,7 +68,11 @@ def makeLegoImage(baseImage, brick, width=30, height=30):
         for y in range(baseHeight):
             bp = basePoa[x, y]
             legoImage.paste(makeLegoBrick(brick, bp[0], bp[1], bp[2]), (x * width, y * height, (x + 1) * width, (y + 1) * height))
+    
+    del basePoa
+    
     return legoImage
+
 
 # check if image is animated
 def is_animated(im):
@@ -76,18 +83,34 @@ def is_animated(im):
         return False
 
 
-def main(filename, brick, width=30, height=30, scale=1):
+def main(filename, brick=os.path.join(os.path.dirname(__file__), "bricks", "brick.png")):
     # open gif to start splitting
-    baseImage = Image.open(filename)
-    newSize = baseImage.size
-    static = filename.lower().endswith(".gif") and is_animated(baseImage)
-    newFilename = '{0}/lego_{1}'.format(*os.path.split(filename))
+    realPath = os.path.realpath(filename)
+    if not os.path.isfile(realPath):
+        print("File \"{0}\" was not found.".format(filename))
+        sys.exit(0)
+    
+    brick = os.path.realpath(brick)
+    
+    if not os.path.isfile(brick):
+        print("Brick asset \"{0}\" was not found.".format(brick))
+        sys.exit(0)
 
-    if newSize[0] > 30 or newSize[1] > 30:
+    baseImage = Image.open(realPath)
+    static = filename.lower().endswith(".gif") and is_animated(baseImage)
+    
+    newFilename = os.path.split(realPath)
+    newFilename = os.path.join(newFilename[0], "lego_{0}".format(newFilename[1]))
+
+    scale = 1
+    newSize = baseImage.size
+    brickSize = Image.open(brick).size
+    
+    if newSize[0] > brickSize[0] or newSize[1] > brickSize[1]:
         if newSize[0] < newSize[1]:
-            scale = newSize[1] / 30
+            scale = newSize[1] / brickSize[1]
         else:
-            scale = newSize[0] / 30
+            scale = newSize[0] / brickSize[0]
     
         newSize = (int(round(newSize[0] / scale)), int(round(newSize[1] / scale)))
 
@@ -108,12 +131,15 @@ def main(filename, brick, width=30, height=30, scale=1):
                 im = Image.open("./tmp_frames/{0}".format(file)).convert("RGBA")
                 if scale != 1:
                     im.thumbnail(newSize, Image.ANTIALIAS)
-                makeLegoImage(im, brick).save("./tmp_frames/{0}".format(file))
+                makeLegoImage(im, brick, brickSize[0], brickSize[1]).save("./tmp_frames/{0}".format(file))
 
         # make new gif "convert -delay 10 -loop 0 *.png animation.gif"
         delay = str(baseImage.info["duration"] / 10)
     
         command = "convert -delay {0} -loop 0 ./tmp_frames/*.png {1}".format(delay, newFilename)
+        if os.name == "nt":
+            MAGICK_HOME = os.environ.get('MAGICK_HOME')
+            command = os.path.join(MAGICK_HOME, "convert.exe") + " -delay {0} -loop 0 ./tmp_frames/*.png {1}".format(delay, newFilename)
 
         print(command)
         call(command.split(" "))
@@ -128,6 +154,7 @@ def main(filename, brick, width=30, height=30, scale=1):
         if scale != 1:
             baseImage.thumbnail(newSize, Image.ANTIALIAS)
         print("Static image detected, will now legofy and save as {0}".format(newFilename))
-        makeLegoImage(baseImage, brick).save(newFilename)
+        makeLegoImage(baseImage, brick, brickSize[0], brickSize[1]).save(newFilename)
 
     print("Finished!")
+
