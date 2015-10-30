@@ -63,8 +63,9 @@ def makeLegoImage(baseImage, brick, width=30, height=30):
 
     for x in range(baseWidth):
         for y in range(baseHeight):
-            bp = basePoa[x, y]
-            legoImage.paste(makeLegoBrick(brick, bp[0], bp[1], bp[2]), (x * width, y * height, (x + 1) * width, (y + 1) * height))
+            r, g, b = basePoa[x, y]
+            dimensions = (x * width, y * height, (x + 1) * width, (y + 1) * height)
+            legoImage.paste(makeLegoBrick(brick, r, g, b), dimensions)
     return legoImage
 
 # check if image is animated
@@ -76,12 +77,15 @@ def is_animated(im):
         return False
 
 
-def main(filename, brick, width=30, height=30, scale=1):
+def main(filename, brick, output=None, width=30, height=30, scale=1):
     # open gif to start splitting
     baseImage = Image.open(filename)
     newSize = baseImage.size
     static = filename.lower().endswith(".gif") and is_animated(baseImage)
-    newFilename = '{0}/lego_{1}'.format(*os.path.split(filename))
+    if not output:
+        _name = filename.split('/')
+        output = 'lego_{0}'.format(_name[len(_name)-1])
+    newFilename = os.path.join('./', output)
 
     if newSize[0] > 30 or newSize[1] > 30:
         if newSize[0] < newSize[1]:
@@ -120,10 +124,6 @@ def main(filename, brick, width=30, height=30, scale=1):
         print("Creating gif with filename\"lego_{0}\"".format(filename))
         shutil.rmtree('./tmp_frames')
     else:
-        newFilename = newFilename.split(".")
-        newFilename[len(newFilename) - 1] = "png"
-        newFilename = ".".join(newFilename)
-        
         baseImage.convert("RGBA")
         if scale != 1:
             baseImage.thumbnail(newSize, Image.ANTIALIAS)

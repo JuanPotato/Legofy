@@ -11,7 +11,7 @@ def main(brick, image, output):
     if not brick:
         here = os.path.abspath(os.path.dirname(__file__))
         brick = os.path.join(here, 'bricks', 'brick.png')
-    legofy.main(image, brick=brick)
+    legofy.main(image, brick=brick, output=output)
 
 if __name__ == '__main__':
     main()
