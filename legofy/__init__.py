@@ -78,6 +78,9 @@ def is_animated(im):
 
 def main(filename, brick, width=30, height=30, scale=1):
     # open gif to start splitting
+    reload(sys)
+    sys.setdefaultencoding("utf-8")
+    filename = str(filename)
     baseImage = Image.open(filename)
     newSize = baseImage.size
     static = filename.lower().endswith(".gif") and is_animated(baseImage)
