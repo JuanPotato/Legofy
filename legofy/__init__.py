@@ -83,7 +83,7 @@ def main(filename, brick, width=30, height=30, scale=1):
     static = filename.lower().endswith(".gif") and is_animated(baseImage)
     newFilename = os.path.join(
         os.path.dirname(filename),
-        'lego_{}'.format(os.path.basename(filename))
+        'lego_{0}'.format(os.path.basename(filename))
     )
 
     if newSize[0] > 30 or newSize[1] > 30:
