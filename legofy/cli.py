@@ -5,13 +5,14 @@ import legofy
 @click.command()
 @click.option('--brick', default=None, type=click.Path(dir_okay=False,
                                                        exists=True))
+@click.option('--scale', default=30, type=int, required=False)
 @click.argument('image', required=True)
 @click.argument('output', default=None, required=False)
-def main(brick, image, output):
+def main(brick, image, output, scale):
     if not brick:
         here = os.path.abspath(os.path.dirname(__file__))
         brick = os.path.join(here, 'bricks', 'brick.png')
-    legofy.main(image, brick=brick)
+    legofy.main(image, scale, brick=brick)
 
 if __name__ == '__main__':
     main()
