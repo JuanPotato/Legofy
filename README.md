@@ -20,7 +20,7 @@ Legofy is a python program that takes a static image or gif and makes it so that
 ### Examples (it is ok if any of the images are not small, the program automatically shrinks them down)
 * Need to make new ones, soon
 
-### Installin instructions for Windows
+### Installation instructions for Windows
 * Install python 3.5 from [python.org](python.org)
 * Open command prompt from the start menu `cmd.exe`
 * Install Pillow executing `pip install Pillow`
