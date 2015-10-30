@@ -38,5 +38,5 @@ Legofy is a python program that takes a static image or gif and makes it so that
 * Run `cli.py` passing filename as parameter, for example, `python cli.py flower.jpg`
 * Output image will appear in the disk root folder, for example, in `C:\`, and will have lego_ prefix, in this particular example it will be `lego_flower.png`
 * The result will look like this:
-* ![lego_flower](https://cloud.githubusercontent.com/assets/2467931/10850994/91c58920-7f39-11e5-9912-c6ecdfbf3c5c.png)
+![lego_flower](https://cloud.githubusercontent.com/assets/2467931/10850994/91c58920-7f39-11e5-9912-c6ecdfbf3c5c.png)
 * Enjoy!
