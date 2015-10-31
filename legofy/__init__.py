@@ -10,15 +10,16 @@ import math
 
 colors = []
 
-def colorDistance(rgb1, rgb2):
-    r1 = rgb1[0]
-    r2 = rgb2[0]
-    g1 = rgb1[1]
-    g2 = rgb2[1]
-    b1 = rgb1[2]
-    b2 = rgb2[2]
+def getNearestColor(rgb):
+    closestrgb = rgb
+    min = 1000
+    for palrgb in colors:
+        curmin = math.sqrt(math.pow(rgb[0] - palrgb[0], 2) + math.pow(rgb[1] - palrgb[1], 2) + math.pow(rgb[2] - palrgb[2], 2))
+        if curmin < min:
+            min = curmin
+            closestrgb = palrgb
 
-    return math.sqrt(math.pow(r1 - r2, 2) + math.pow(g1 - g2, 2) + math.pow(b1 - b2, 2))
+    return closestrgb
 
 # function that iterates over the gif's frames
 def iter_frames(imageToIter):
@@ -41,19 +42,9 @@ def iter_frames(imageToIter):
 def applyEffect(image, overlayRed, overlayGreen, overlayBlue):
     channels = image.split()
 
-    rgb = [overlayRed, overlayGreen, overlayBlue]
-    closestrgb = rgb
-    min = 1000
-    for legorgb in colors:
-        legomin = colorDistance(rgb, legorgb)
-        if legomin < min:
-            min = legomin
-            closestrgb = legorgb
-
-
-    r = channels[0].point(lambda color: closestrgb[0] - 100 if (133 - color) > 100 else (closestrgb[0] + 100 if (133 - color) < -100 else closestrgb[0] - (133 - color)))
-    g = channels[1].point(lambda color: closestrgb[1] - 100 if (133 - color) > 100 else (closestrgb[1] + 100 if (133 - color) < -100 else closestrgb[1] - (133 - color)))
-    b = channels[2].point(lambda color: closestrgb[2] - 100 if (133 - color) > 100 else (closestrgb[2] + 100 if (133 - color) < -100 else closestrgb[2] - (133 - color)))
+    r = channels[0].point(lambda color: overlayRed - 100 if (133 - color) > 100 else (overlayRed + 100 if (133 - color) < -100 else overlayRed - (133 - color)))
+    g = channels[1].point(lambda color: overlayGreen - 100 if (133 - color) > 100 else (overlayGreen + 100 if (133 - color) < -100 else overlayGreen - (133 - color)))
+    b = channels[2].point(lambda color: overlayBlue - 100 if (133 - color) > 100 else (overlayBlue + 100 if (133 - color) < -100 else overlayBlue - (133 - color)))
 
     channels[0].paste(r)
     channels[1].paste(g)
@@ -78,6 +69,7 @@ def makeLegoImage(baseImage, brickFilename, width, height):
     for x in range(baseWidth):
         for y in range(baseHeight):
             bp = basePoa[x, y]
+            bp = getNearestColor(bp)
             legoImage.paste(makeLegoBrick(brickImage, bp[0], bp[1], bp[2]), (x * width, y * height, (x + 1) * width, (y + 1) * height))
     
     del basePoa
