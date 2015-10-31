@@ -24,41 +24,28 @@ def iter_frames(imageToIter):
 
 
 # small function to apply an effect over an entire image
-def applyEffect(image, effect):
-    width, height = image.size
-    pao = image.load()
-    for x in range(width):
-        for y in range(height):
-            pao[x, y] = effect(pao[x, y])
-    
-    del pao
-    return image
+def applyEffect(image, overlayRed, overlayGreen, overlayBlue):
+    channels = image.split()
 
+    r = channels[0].point(lambda color: overlayRed - 100 if (133 - color) > 100 else (overlayRed + 100 if (133 - color) < -100 else overlayRed - (133 - color)))
+    g = channels[1].point(lambda color: overlayGreen - 100 if (133 - color) > 100 else (overlayGreen + 100 if (133 - color) < -100 else overlayGreen - (133 - color)))
+    b = channels[2].point(lambda color: overlayBlue - 100 if (133 - color) > 100 else (overlayBlue + 100 if (133 - color) < -100 else overlayBlue - (133 - color)))
 
-def overUnder(value, min=-100, max=100):
-    if value > max:
-        return max
-    elif value < min:
-        return min
-    else:
-        return value
+    channels[0].paste(r)
+    channels[1].paste(g)
+    channels[2].paste(b)
+
+    return Image.merge(image.mode, channels)
 
  
 # create a lego brick from a single color
-def makeLegoBrick(brick, overlayRed, overlayGreen, overlayBlue):
-    # colorizing the brick function
-    def colorize(blockColors):
-        newRed = overUnder(133 - overlayRed)
-        newGreen = overUnder(133 - overlayGreen)
-        newBlue = overUnder(133 - overlayBlue)
-        
-        return (blockColors[0] - newRed, blockColors[1] - newGreen, blockColors[2] - newBlue, 255)
-    
-    return applyEffect(Image.open(brick), colorize)
+def makeLegoBrick(brickImage, overlayRed, overlayGreen, overlayBlue):
+    return applyEffect(brickImage.copy(), overlayRed, overlayGreen, overlayBlue)
 
 
 # create a lego version of an image from an image
-def makeLegoImage(baseImage, brick, width, height):
+def makeLegoImage(baseImage, brickFilename, width, height):
+    brickImage = Image.open(brickFilename)
     baseWidth, baseHeight = baseImage.size
     basePoa = baseImage.load()
 
@@ -67,7 +54,7 @@ def makeLegoImage(baseImage, brick, width, height):
     for x in range(baseWidth):
         for y in range(baseHeight):
             bp = basePoa[x, y]
-            legoImage.paste(makeLegoBrick(brick, bp[0], bp[1], bp[2]), (x * width, y * height, (x + 1) * width, (y + 1) * height))
+            legoImage.paste(makeLegoBrick(brickImage, bp[0], bp[1], bp[2]), (x * width, y * height, (x + 1) * width, (y + 1) * height))
     
     del basePoa
     
@@ -97,7 +84,6 @@ def main(filename, brick=os.path.join(os.path.dirname(__file__), "bricks", "bric
         sys.exit(0)
 
     baseImage = Image.open(realPath)
-    static = filename.lower().endswith(".gif") and is_animated(baseImage)
     
     newFilename = os.path.split(realPath)
     newFilename = os.path.join(newFilename[0], "lego_{0}".format(newFilename[1]))
@@ -114,7 +100,9 @@ def main(filename, brick=os.path.join(os.path.dirname(__file__), "bricks", "bric
     
         newSize = (int(round(newSize[0] / scale)), int(round(newSize[1] / scale)))
 
-    if static:
+    if filename.lower().endswith(".gif") and is_animated(baseImage):
+        # Animated GIF
+
         print("Animated gif detected, will now legofy each frame and recreate the gif and save as lego_{0}".format(filename))
         # check if dir exists, if not, make it
         if not os.path.exists("./tmp_frames/"):
@@ -146,6 +134,9 @@ def main(filename, brick=os.path.join(os.path.dirname(__file__), "bricks", "bric
         print("Creating gif with filename\"lego_{0}\"".format(filename))
         shutil.rmtree('./tmp_frames')
     else:
+
+        # Other image types
+
         newFilename = newFilename.split(".")
         newFilename[len(newFilename) - 1] = "png"
         newFilename = ".".join(newFilename)
