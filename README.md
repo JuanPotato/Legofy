@@ -5,8 +5,8 @@
 ### What is it?
 Legofy is a python program that takes a static image or gif and makes it so that it looks as if it was built out of LEGO.
 
-<img alt="Before" title="Before" height="500" src="https://github.com/JuanPotato/Legofy/blob/master/tests/image.jpg?raw=true">
-<img alt="After" title="After" height="500" src="https://github.com/JuanPotato/Legofy/blob/master/tests/lego_image.png?raw=true">
+<img alt="Before" title="Before" height="500" src="tests/image.jpg?raw=true">
+<img alt="After" title="After" height="500" src="tests/lego_image.png?raw=true">
 
 ### Requirements
 * Python
