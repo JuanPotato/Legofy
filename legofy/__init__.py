@@ -5,6 +5,20 @@ from subprocess import call
 import shutil
 import sys
 import os
+import csv
+import math
+
+colors = []
+
+def colorDistance(rgb1, rgb2):
+    r1 = rgb1[0]
+    r2 = rgb2[0]
+    g1 = rgb1[1]
+    g2 = rgb2[1]
+    b1 = rgb1[2]
+    b2 = rgb2[2]
+
+    return math.sqrt(math.pow(r1 - r2, 2) + math.pow(g1 - g2, 2) + math.pow(b1 - b2, 2))
 
 # function that iterates over the gif's frames
 def iter_frames(imageToIter):
@@ -27,9 +41,19 @@ def iter_frames(imageToIter):
 def applyEffect(image, overlayRed, overlayGreen, overlayBlue):
     channels = image.split()
 
-    r = channels[0].point(lambda color: overlayRed - 100 if (133 - color) > 100 else (overlayRed + 100 if (133 - color) < -100 else overlayRed - (133 - color)))
-    g = channels[1].point(lambda color: overlayGreen - 100 if (133 - color) > 100 else (overlayGreen + 100 if (133 - color) < -100 else overlayGreen - (133 - color)))
-    b = channels[2].point(lambda color: overlayBlue - 100 if (133 - color) > 100 else (overlayBlue + 100 if (133 - color) < -100 else overlayBlue - (133 - color)))
+    rgb = [overlayRed, overlayGreen, overlayBlue]
+    closestrgb = rgb
+    min = 1000
+    for legorgb in colors:
+        legomin = colorDistance(rgb, legorgb)
+        if legomin < min:
+            min = legomin
+            closestrgb = legorgb
+
+
+    r = channels[0].point(lambda color: closestrgb[0] - 100 if (133 - color) > 100 else (closestrgb[0] + 100 if (133 - color) < -100 else closestrgb[0] - (133 - color)))
+    g = channels[1].point(lambda color: closestrgb[1] - 100 if (133 - color) > 100 else (closestrgb[1] + 100 if (133 - color) < -100 else closestrgb[1] - (133 - color)))
+    b = channels[2].point(lambda color: closestrgb[2] - 100 if (133 - color) > 100 else (closestrgb[2] + 100 if (133 - color) < -100 else closestrgb[2] - (133 - color)))
 
     channels[0].paste(r)
     channels[1].paste(g)
@@ -70,7 +94,7 @@ def is_animated(im):
         return False
 
 
-def main(filename, brick=os.path.join(os.path.dirname(__file__), "bricks", "brick.png")):
+def main(filename, brick, palette):
     # open gif to start splitting
     realPath = os.path.realpath(filename)
     if not os.path.isfile(realPath):
@@ -82,6 +106,16 @@ def main(filename, brick=os.path.join(os.path.dirname(__file__), "bricks", "bric
     if not os.path.isfile(brick):
         print('Brick asset "{0}" was not found.'.format(brick))
         sys.exit(0)
+
+    if not os.path.isfile(palette):
+        print('Palette asset "{0}" was not found.'.format(palette))
+        sys.exit(0)
+
+    with open(palette, 'r') as csvfile:
+        reader = csv.reader(csvfile)
+        for row in reader:
+            rgb = [int(row[0]), int(row[1]), int(row[2])]
+            colors.append(rgb)
 
     baseImage = Image.open(realPath)
     
