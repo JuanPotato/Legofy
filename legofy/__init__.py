@@ -74,13 +74,13 @@ def main(filename, brick=os.path.join(os.path.dirname(__file__), "bricks", "bric
     # open gif to start splitting
     realPath = os.path.realpath(filename)
     if not os.path.isfile(realPath):
-        print("File \"{0}\" was not found.".format(filename))
+        print('File "{0}" was not found.'.format(filename))
         sys.exit(0)
     
     brick = os.path.realpath(brick)
     
     if not os.path.isfile(brick):
-        print("Brick asset \"{0}\" was not found.".format(brick))
+        print('Brick asset "{0}" was not found.'.format(brick))
         sys.exit(0)
 
     baseImage = Image.open(realPath)
@@ -137,9 +137,7 @@ def main(filename, brick=os.path.join(os.path.dirname(__file__), "bricks", "bric
 
         # Other image types
 
-        newFilename = newFilename.split(".")
-        newFilename[len(newFilename) - 1] = "png"
-        newFilename = ".".join(newFilename)
+        newFilename = newFilename.rpartition('.')[0] + '.png'
         
         baseImage.convert("RGBA")
         if scale != 1:
@@ -148,4 +146,3 @@ def main(filename, brick=os.path.join(os.path.dirname(__file__), "bricks", "bric
         makeLegoImage(baseImage, brick, brickSize[0], brickSize[1]).save(newFilename)
 
     print("Finished!")
-
