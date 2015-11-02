@@ -1,0 +1,219 @@
+[
+    {
+        "ID": "1",
+        "name": "White ",
+        "red": "242",
+        "green": "243",
+        "blue": "242"
+    },
+    {
+        "ID": "2",
+        "name": "Grey ",
+        "red": "161",
+        "green": "165",
+        "blue": "162"
+    },
+    {
+        "ID": "5",
+        "name": "Brickyellow ",
+        "red": "215",
+        "green": "197",
+        "blue": "153"
+    },
+    {
+        "ID": "21",
+        "name": "Brightred ",
+        "red": "196",
+        "green": "40",
+        "blue": "27"
+    },
+    {
+        "ID": "23",
+        "name": "Brightblue ",
+        "red": "13",
+        "green": "105",
+        "blue": "171"
+    },
+    {
+        "ID": "24",
+        "name": "Brightyellow ",
+        "red": "245",
+        "green": "205",
+        "blue": "47"
+    },
+    {
+        "ID": "26",
+        "name": "Black ",
+        "red": "27",
+        "green": "42",
+        "blue": "52"
+    },
+    {
+        "ID": "28",
+        "name": "Darkgreen ",
+        "red": "40",
+        "green": "127",
+        "blue": "70"
+    },
+    {
+        "ID": "36",
+        "name": "Lig.Yellowichorange ",
+        "red": "243",
+        "green": "207",
+        "blue": "155"
+    },
+    {
+        "ID": "102",
+        "name": "Mediumblue ",
+        "red": "110",
+        "green": "153",
+        "blue": "201"
+    },
+    {
+        "ID": "106",
+        "name": "Brightorange ",
+        "red": "218",
+        "green": "133",
+        "blue": "64"
+    },
+    {
+        "ID": "119",
+        "name": "Br.yellowishgreen ",
+        "red": "164",
+        "green": "189",
+        "blue": "70"
+    },
+    {
+        "ID": "124",
+        "name": "Brightreddishviolet ",
+        "red": "146",
+        "green": "57",
+        "blue": "120"
+    },
+    {
+        "ID": "138",
+        "name": "Sandyellow ",
+        "red": "149",
+        "green": "138",
+        "blue": "115"
+    },
+    {
+        "ID": "140",
+        "name": "Earthblue ",
+        "red": "32",
+        "green": "58",
+        "blue": "86"
+    },
+    {
+        "ID": "141",
+        "name": "Earthgreen ",
+        "red": "39",
+        "green": "70",
+        "blue": "44"
+    },
+    {
+        "ID": "154",
+        "name": "Darkred ",
+        "red": "128",
+        "green": "8",
+        "blue": "27"
+    },
+    {
+        "ID": "192",
+        "name": "Reddishbrown ",
+        "red": "105",
+        "green": "64",
+        "blue": "39"
+    },
+    {
+        "ID": "194",
+        "name": "Mediumstonegrey ",
+        "red": "163",
+        "green": "162",
+        "blue": "164"
+    },
+    {
+        "ID": "199",
+        "name": "Darkstonegrey ",
+        "red": "99",
+        "green": "95",
+        "blue": "97"
+    },
+    {
+        "ID": "221",
+        "name": "Brightpurple ",
+        "red": "205",
+        "green": "98",
+        "blue": "152"
+    },
+    {
+        "ID": "222",
+        "name": "Lightpurple ",
+        "red": "228",
+        "green": "173",
+        "blue": "200"
+    },
+    {
+        "ID": "226",
+        "name": "Coolyellow ",
+        "red": "253",
+        "green": "234",
+        "blue": "140"
+    },
+    {
+        "ID": "268",
+        "name": "Mediumlilac ",
+        "red": "52",
+        "green": "43",
+        "blue": "117"
+    },
+    {
+        "ID": "41",
+        "name": "Tr.Red ",
+        "red": "205",
+        "green": "84",
+        "blue": "75"
+    },
+    {
+        "ID": "43",
+        "name": "Tr.Blue ",
+        "red": "123",
+        "green": "182",
+        "blue": "232"
+    },
+    {
+        "ID": "48",
+        "name": "Tr.Green ",
+        "red": "132",
+        "green": "182",
+        "blue": "141"
+    },
+    {
+        "ID": "111",
+        "name": "Tr.Brown ",
+        "red": "191",
+        "green": "183",
+        "blue": "177"
+    },
+    {
+        "ID": "322",
+        "name": "Md. Azure",
+        "red": "104",
+        "green": "195",
+        "blue": "226"
+    },
+    {
+        "ID": "324",
+        "name": "Medium Lavendel",
+        "red": "160",
+        "green": "110",
+        "blue": "185"
+    },
+    {
+        "ID": "321",
+        "name": "DarkAzur",
+        "red": "70",
+        "green": "155",
+        "blue": "195"
+    }
+]
