@@ -5,6 +5,21 @@ from subprocess import call
 import shutil
 import sys
 import os
+import csv
+import math
+
+colors = []
+
+def getNearestColor(rgb):
+    closestrgb = rgb
+    min = 1000
+    for palrgb in colors:
+        curmin = math.sqrt(math.pow(rgb[0] - palrgb[0], 2) + math.pow(rgb[1] - palrgb[1], 2) + math.pow(rgb[2] - palrgb[2], 2))
+        if curmin < min:
+            min = curmin
+            closestrgb = palrgb
+
+    return closestrgb
 
 # function that iterates over the gif's frames
 def iter_frames(imageToIter):
@@ -54,6 +69,7 @@ def makeLegoImage(baseImage, brickFilename, width, height):
     for x in range(baseWidth):
         for y in range(baseHeight):
             bp = basePoa[x, y]
+            bp = getNearestColor(bp)
             legoImage.paste(makeLegoBrick(brickImage, bp[0], bp[1], bp[2]), (x * width, y * height, (x + 1) * width, (y + 1) * height))
     
     del basePoa
@@ -70,7 +86,7 @@ def is_animated(im):
         return False
 
 
-def main(filename, brick=os.path.join(os.path.dirname(__file__), "bricks", "brick.png")):
+def main(filename, brick, palette):
     # open gif to start splitting
     realPath = os.path.realpath(filename)
     if not os.path.isfile(realPath):
@@ -82,6 +98,16 @@ def main(filename, brick=os.path.join(os.path.dirname(__file__), "bricks", "bric
     if not os.path.isfile(brick):
         print('Brick asset "{0}" was not found.'.format(brick))
         sys.exit(0)
+
+    if not os.path.isfile(palette):
+        print('Palette asset "{0}" was not found.'.format(palette))
+        sys.exit(0)
+
+    with open(palette, 'r') as csvfile:
+        reader = csv.reader(csvfile)
+        for row in reader:
+            rgb = [int(row[0]), int(row[1]), int(row[2])]
+            colors.append(rgb)
 
     baseImage = Image.open(realPath)
     
