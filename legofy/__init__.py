@@ -85,8 +85,18 @@ def main(filename, brick=os.path.join(os.path.dirname(__file__), "bricks", "bric
 
     baseImage = Image.open(realPath)
     
-    newFilename = os.path.split(realPath)
-    newFilename = os.path.join(newFilename[0], "lego_{0}".format(newFilename[1]))
+    # Store path (including filename) at 0, extension (including leading dot) at 1
+    chunks = os.path.splitext(realPath)
+
+    # Store extension
+    extension = chunks[1]
+
+    # Store path at 0 (without filename), filename (without extension) at 1
+    chunks = os.path.split(chunks[0])
+
+    # New filename (e.g. path/to/file/filename.lego.ext)
+    newFilename = os.path.join(chunks[0], chunks[1] + '.lego' + extension)
+
 
     scale = 1
     newSize = baseImage.size
