@@ -6,6 +6,7 @@ import shutil
 import sys
 import os
 
+
 def iter_frames(image_to_iter):
     '''Function that iterates over the gif's frames'''
     try:
@@ -69,6 +70,7 @@ def is_animated(image):
     except EOFError:
         return False
 
+
 def get_new_filename(file_path, ext_override=None):
     '''Returns the save destination file path'''
     folder, basename = os.path.split(file_path)
@@ -77,6 +79,7 @@ def get_new_filename(file_path, ext_override=None):
         extention = ext_override
     new_filename = os.path.join(folder, "{0}_lego{1}".format(base, extention))
     return new_filename
+
 
 def get_new_size(base_image, brick_image):
     '''Returns a new size the first image should be so that the second one fits neatly in the longest axis'''
@@ -93,7 +96,7 @@ def get_new_size(base_image, brick_image):
 
     return new_size
 
-#
+
 def legofy_gif(base_image, brick_image, output_path):
     '''Legofy an animated GIF'''
     new_size = get_new_size(base_image, brick_image)
@@ -120,7 +123,7 @@ def legofy_gif(base_image, brick_image, output_path):
     # make new gif "convert -delay 10 -loop 0 *.png animation.gif"
     delay = str(base_image.info["duration"] / 10)
 
-    command = ["convert", "-delay", delay, "-loop", "0", "{}/*.png".format(tmp_dir),  "{}".format(output_path)]
+    command = ["convert", "-delay", delay, "-loop", "0", "{0}/*.png".format(tmp_dir),  "{0}".format(output_path)]
     if os.name == "nt":
         magick_home = os.environ.get('MAGICK_HOME')
         magick = os.path.join(magick_home, "convert.exe")
@@ -134,6 +137,7 @@ def legofy_gif(base_image, brick_image, output_path):
         sys.exit(1)
     shutil.rmtree(tmp_dir)
 
+
 def legofy_image(base_image, brick_image, output_path):
     '''Legofy an image'''
     new_size = get_new_size(base_image, brick_image)
@@ -144,7 +148,8 @@ def legofy_image(base_image, brick_image, output_path):
 
     make_lego_image(base_image, brick_image).save(output_path)
 
-def main(image_path, brick_path=os.path.join(os.path.dirname(__file__), "bricks", "brick.png")):
+
+def main(image_path, brick_path=os.path.join(os.path.dirname(__file__), "bricks", "brick.png"), output=None):
     '''Legofy image or gif with brick_path mask'''
     if os.name == "nt" and os.environ.get('MAGICK_HOME') == None:
         print('Could not find the MAGICK_HOME environment variable.')
@@ -159,16 +164,26 @@ def main(image_path, brick_path=os.path.join(os.path.dirname(__file__), "bricks"
     if not os.path.isfile(brick_path):
         print('Brick asset "{0}" was not found.'.format(brick_path))
         sys.exit(1)
+    
+    if output:
+        output = os.path.realpath(output)
+        output = os.path.splitext(output)[0]
 
     base_image = Image.open(image_path)
     brick_image = Image.open(brick_path)
 
     if image_path.lower().endswith(".gif") and is_animated(base_image):
         output_path = get_new_filename(image_path)
+
+        if output:
+            output_path = "{0}.gif".format(output)
         print("Animated gif detected, will now legofy to {0}".format(output_path))
         legofy_gif(base_image, brick_image, output_path)
     else:
         output_path = get_new_filename(image_path, '.png')
+
+        if output:
+            output_path = "{0}.png".format(output)
         print("Static image detected, will now legofy to {0}".format(output_path))
         legofy_image(base_image, brick_image, output_path)
 
