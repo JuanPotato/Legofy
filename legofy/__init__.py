@@ -6,6 +6,12 @@ import shutil
 import sys
 import os
 
+with open('brickColor.json') as data:
+    color = json.load(data)
+
+color = [(int(i['red']), int(i['green']), int(i['blue'])) for i in color ]
+
+
 # function that iterates over the gif's frames
 def iter_frames(imageToIter):
     try:
@@ -22,14 +28,25 @@ def iter_frames(imageToIter):
     except EOFError:
         pass
 
+def getNearestColor(allColor, im):
+    d = {}
+    for i in xrange(len(allColor)):
+       c = map(lambda i,j:i-j, allColor[i],im)
+       c = sum([j**2 for j in c]) 
+                                    
+       d[c] = allColor[i]
+
+    return d[min(d.keys())]
 
 # small function to apply an effect over an entire image
 def applyEffect(image, overlayRed, overlayGreen, overlayBlue):
     channels = image.split()
 
-    r = channels[0].point(lambda color: overlayRed - 100 if (133 - color) > 100 else (overlayRed + 100 if (133 - color) < -100 else overlayRed - (133 - color)))
-    g = channels[1].point(lambda color: overlayGreen - 100 if (133 - color) > 100 else (overlayGreen + 100 if (133 - color) < -100 else overlayGreen - (133 - color)))
-    b = channels[2].point(lambda color: overlayBlue - 100 if (133 - color) > 100 else (overlayBlue + 100 if (133 - color) < -100 else overlayBlue - (133 - color)))
+    #r = channels[0].point(lambda color: overlayRed - 100 if (133 - color) > 100 else (overlayRed + 100 if (133 - color) < -100 else overlayRed - (133 - color)))
+    #g = channels[1].point(lambda color: overlayGreen - 100 if (133 - color) > 100 else (overlayGreen + 100 if (133 - color) < -100 else overlayGreen - (133 - color)))
+    #b = channels[2].point(lambda color: overlayBlue - 100 if (133 - color) > 100 else (overlayBlue + 100 if (133 - color) < -100 else overlayBlue - (133 - color)))
+
+    r, g, b = getNearestColor(color,channels)
 
     channels[0].paste(r)
     channels[1].paste(g)
