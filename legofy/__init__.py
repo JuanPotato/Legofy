@@ -142,7 +142,7 @@ def legofy_image(base_image, brick_image, output_path):
     '''Legofy an image'''
     new_size = get_new_size(base_image, brick_image)
 
-    base_image.convert("RGBA")
+    base_image = base_image.convert("RGB")
     if new_size != base_image.size:
         base_image.thumbnail(new_size, Image.ANTIALIAS)
 
@@ -164,7 +164,7 @@ def main(image_path, brick_path=os.path.join(os.path.dirname(__file__), "bricks"
     if not os.path.isfile(brick_path):
         print('Brick asset "{0}" was not found.'.format(brick_path))
         sys.exit(1)
-    
+
     if output:
         output = os.path.realpath(output)
         output = os.path.splitext(output)[0]
