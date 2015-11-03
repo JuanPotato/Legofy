@@ -62,15 +62,6 @@ def make_lego_image(base_image, brick_image):
     return lego_image
 
 
-def is_animated(image):
-    '''Check if image is animated'''
-    try:
-        image.seek(1)
-        return True
-    except EOFError:
-        return False
-
-
 def get_new_filename(file_path, ext_override=None):
     '''Returns the save destination file path'''
     folder, basename = os.path.split(file_path)
@@ -172,7 +163,7 @@ def main(image_path, brick_path=os.path.join(os.path.dirname(__file__), "bricks"
     base_image = Image.open(image_path)
     brick_image = Image.open(brick_path)
 
-    if image_path.lower().endswith(".gif") and is_animated(base_image):
+    if image_path.lower().endswith(".gif") and base_image.is_animated:
         output_path = get_new_filename(image_path)
 
         if output:
