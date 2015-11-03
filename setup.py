@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
-from setuptools import setup, find_packages
-
+from setuptools import setup
 
 setup(
     name='legofy',
@@ -21,7 +20,7 @@ setup(
             'legofy = legofy.cli:main',
         ],
     },
-    package_data = {
+    package_data={
         'bricks': ['*.png'],
     },
     test_suite='nose.collector',
