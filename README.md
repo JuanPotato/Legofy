@@ -21,4 +21,4 @@ Legofy is a python program that takes a static image or gif and makes it so that
 * `git clone https://github.com/JuanPotato/Legofy.git`
 * `cd Legofy`
 * `python setup.py install`
-* `legofy image.jpg` - anywhere
+* `legofy source.jpg target.jpg` - anywhere
