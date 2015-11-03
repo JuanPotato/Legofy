@@ -1,4 +1,4 @@
-import os
+'''Command line interface to Legofy'''
 import click
 import legofy
 
@@ -6,14 +6,15 @@ import legofy
 @click.option('--brick', default=None, type=click.Path(dir_okay=False, exists=True))
 @click.argument('image', required=True)
 @click.argument('output', default=None, required=False)
+
 def main(brick, image, output):
+    '''Main entry point'''
     if brick and output:
         legofy.main(image, brick=brick, output=output)
-    if brick:
+    elif brick:
         legofy.main(image, brick=brick)
-    if output:
+    elif output:
         legofy.main(image, output=output)
-        
 
 if __name__ == '__main__':
     main()
