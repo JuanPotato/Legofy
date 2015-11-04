@@ -149,8 +149,11 @@ def legofy_image(base_image, brick_image, output_path, bricks):
     make_lego_image(base_image, brick_image).save(output_path)
 
 
-def main(image_path, output=None, bricks=None, brick_path=os.path.join(os.path.dirname(__file__), "bricks", "brick.png")):
+def main(image_path, output=None, bricks=None, brick_path=None):
     '''Legofy image or gif with brick_path mask'''
+    if brick_path is None:
+        brick_path = os.path.join(os.path.dirname(__file__), "bricks", "brick.png")
+
     if os.name == "nt" and os.environ.get('MAGICK_HOME') == None:
         print('Could not find the MAGICK_HOME environment variable.')
         sys.exit(1)

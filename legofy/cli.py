@@ -10,26 +10,7 @@ import legofy
 @click.option('--brick', default=None, required=False, type=click.Path(dir_okay=False, exists=True, resolve_path=True))
 def main(image, output, bricks, brick):
     '''Main entry point'''
-    if output:
-        if bricks:
-            if brick:
-                legofy.main(image, output=output, bricks=bricks, brick_path=brick)
-            else:
-                legofy.main(image, output=output, bricks=bricks)
-        elif brick:
-            legofy.main(image, output=output, brick_path=brick)
-        else:
-            legofy.main(image, output=output)
-    elif bricks:
-        if brick:
-            legofy.main(image, bricks=bricks, brick_path=brick)
-        else:
-            legofy.main(image, bricks=bricks)
-    elif brick:
-        legofy.main(image, brick_path=brick)
-    else:
-        legofy.main(image)
-
+    legofy.main(image, output=output, bricks=bricks, brick_path=brick)
 
 if __name__ == '__main__':
     main()
