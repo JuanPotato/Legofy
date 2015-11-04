@@ -72,25 +72,34 @@ def get_new_filename(file_path, ext_override=None):
     return new_filename
 
 
-def get_new_size(base_image, brick_image):
+def get_new_size(base_image, brick_image, bricks=None):
     '''Returns a new size the first image should be so that the second one fits neatly in the longest axis'''
     new_size = base_image.size
-    brick_size = brick_image.size
+    scale_x, scale_y = brick_image.size
 
-    if new_size[0] > brick_size[0] or new_size[1] > brick_size[1]:
+    if bricks:
+        scale_x, scale_y = bricks, bricks
+
+    if new_size[0] > scale_x or new_size[1] > scale_y:
         if new_size[0] < new_size[1]:
-            scale = new_size[1] / brick_size[1]
+            scale = new_size[1] / scale_y
         else:
-            scale = new_size[0] / brick_size[0]
+            scale = new_size[0] / scale_x
 
         new_size = (int(round(new_size[0] / scale)), int(round(new_size[1] / scale)))
+
+        if not new_size[0]:
+            new_size = (1, new_size[1])
+
+        if not new_size[1]:
+            new_size = (new_size[0], 1)
 
     return new_size
 
 
-def legofy_gif(base_image, brick_image, output_path):
+def legofy_gif(base_image, brick_image, output_path, bricks):
     '''Legofy an animated GIF'''
-    new_size = get_new_size(base_image, brick_image)
+    new_size = get_new_size(base_image, brick_image, bricks)
     tmp_dir = os.path.join(os.path.dirname(__file__), "tmp_frames")
     # Clean up tmp dir if it exists
     if os.path.exists(tmp_dir):
@@ -129,9 +138,9 @@ def legofy_gif(base_image, brick_image, output_path):
     shutil.rmtree(tmp_dir)
 
 
-def legofy_image(base_image, brick_image, output_path):
+def legofy_image(base_image, brick_image, output_path, bricks):
     '''Legofy an image'''
-    new_size = get_new_size(base_image, brick_image)
+    new_size = get_new_size(base_image, brick_image, bricks)
 
     base_image = base_image.convert("RGB")
     if new_size != base_image.size:
@@ -140,7 +149,7 @@ def legofy_image(base_image, brick_image, output_path):
     make_lego_image(base_image, brick_image).save(output_path)
 
 
-def main(image_path, brick_path=os.path.join(os.path.dirname(__file__), "bricks", "brick.png"), output=None):
+def main(image_path, output=None, bricks=None, brick_path=os.path.join(os.path.dirname(__file__), "bricks", "brick.png")):
     '''Legofy image or gif with brick_path mask'''
     if os.name == "nt" and os.environ.get('MAGICK_HOME') == None:
         print('Could not find the MAGICK_HOME environment variable.')
@@ -169,13 +178,13 @@ def main(image_path, brick_path=os.path.join(os.path.dirname(__file__), "bricks"
         if output:
             output_path = "{0}.gif".format(output)
         print("Animated gif detected, will now legofy to {0}".format(output_path))
-        legofy_gif(base_image, brick_image, output_path)
+        legofy_gif(base_image, brick_image, output_path, bricks)
     else:
         output_path = get_new_filename(image_path, '.png')
 
         if output:
             output_path = "{0}.png".format(output)
         print("Static image detected, will now legofy to {0}".format(output_path))
-        legofy_image(base_image, brick_image, output_path)
+        legofy_image(base_image, brick_image, output_path, bricks)
 
     print("Finished!")
