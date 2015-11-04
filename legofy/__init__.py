@@ -72,18 +72,18 @@ def get_new_filename(file_path, ext_override=None):
     return new_filename
 
 
-def get_new_size(base_image, brick_image):
+def get_new_size(base_image, scale, brick_image):
     '''Returns a new size the first image should be so that the second one fits neatly in the longest axis'''
     new_size = base_image.size
     brick_size = brick_image.size
 
     if new_size[0] > brick_size[0] or new_size[1] > brick_size[1]:
         if new_size[0] < new_size[1]:
-            scale = new_size[1] / brick_size[1]
+            divisor = new_size[1] / brick_size[1] / float(scale)
         else:
-            scale = new_size[0] / brick_size[0]
+            divisor = new_size[0] / brick_size[0] / float(scale)
 
-        new_size = (int(round(new_size[0] / scale)), int(round(new_size[1] / scale)))
+        new_size = (int(round(new_size[0] / divisor)), int(round(new_size[1] / divisor)))
 
     return new_size
 
@@ -129,9 +129,9 @@ def legofy_gif(base_image, brick_image, output_path):
     shutil.rmtree(tmp_dir)
 
 
-def legofy_image(base_image, brick_image, output_path):
+def legofy_image(base_image, scale, brick_image, output_path):
     '''Legofy an image'''
-    new_size = get_new_size(base_image, brick_image)
+    new_size = get_new_size(base_image, scale, brick_image)
 
     base_image = base_image.convert("RGB")
     if new_size != base_image.size:
@@ -140,8 +140,9 @@ def legofy_image(base_image, brick_image, output_path):
     make_lego_image(base_image, brick_image).save(output_path)
 
 
-def main(image_path, brick_path=os.path.join(os.path.dirname(__file__), "bricks", "brick.png"), output=None):
+def main(image_path, scale, brick_path=os.path.join(os.path.dirname(__file__), "bricks", "brick.png"), output=None):
     '''Legofy image or gif with brick_path mask'''
+
     if os.name == "nt" and os.environ.get('MAGICK_HOME') == None:
         print('Could not find the MAGICK_HOME environment variable.')
         sys.exit(1)
@@ -176,6 +177,6 @@ def main(image_path, brick_path=os.path.join(os.path.dirname(__file__), "bricks"
         if output:
             output_path = "{0}.png".format(output)
         print("Static image detected, will now legofy to {0}".format(output_path))
-        legofy_image(base_image, brick_image, output_path)
+        legofy_image(base_image, scale, brick_image, output_path)
 
     print("Finished!")
