@@ -1,1 +1,2 @@
-recursive-include legofy/bricks *.png
+recursive-include assets/bricks *.png
+recursive-include . *.png
