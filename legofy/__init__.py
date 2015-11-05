@@ -161,7 +161,7 @@ def main(image_path, output=None, bricks=None, brick_path=None):
         sys.exit(1)
 
     if brick_path is None:
-        brick_path = os.path.join(os.path.dirname(__file__), "..", "assets", "bricks", "1x1.png")
+        brick_path = os.path.join(os.path.dirname(__file__), "assets", "bricks", "1x1.png")
     else:
         brick_path = os.path.realpath(brick_path)
 

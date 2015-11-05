@@ -27,7 +27,7 @@ class CreateFileTestCase(unittest.TestCase):
     def test_legofy_image(self):
         '''Can we legofy a static image?'''
         self.create_tmpfile('.png')
-        image_path = os.path.join(self.test_dir, '..', 'assets', 'flower.jpg')
+        image_path = os.path.join(self.test_dir, '..', 'legofy', 'assets', 'flower.jpg')
         self.assertTrue(os.path.exists(image_path),
                         "Could not find image : {0}".format(image_path))
 
@@ -37,7 +37,7 @@ class CreateFileTestCase(unittest.TestCase):
     def test_legofy_gif(self):
         '''Can we legofy a gif?'''
         self.create_tmpfile('.gif')
-        gif_path = os.path.join(self.test_dir, '..', 'assets', 'bacon.gif')
+        gif_path = os.path.join(self.test_dir, '..', 'legofy', 'assets', 'bacon.gif')
         self.assertTrue(os.path.exists(gif_path),
                         "Could not find image : {0}".format(gif_path))
         legofy.main(gif_path, output=self.out_path)
