@@ -46,7 +46,6 @@ color = [
     (150, 185, 59),  # 331: medium yellowish green
 ]
 
-
 def getNearestColor(allColor, im):
     d = {}
     for i in xrange(len(allColor)):
