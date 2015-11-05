@@ -15,4 +15,7 @@ python:
   - "3.5"
   - "3.5-dev" # 3.5 development branch
   - "nightly" # currently points to 3.6-dev
-script: "python setup.py test"
+script:
+  - python setup.py test
+  - python setup.py install
+  - legofy assets/flower.jpg flower_lego.png
