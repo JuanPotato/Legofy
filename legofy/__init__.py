@@ -75,10 +75,10 @@ def get_new_filename(file_path, ext_override=None):
 def get_new_size(base_image, brick_image, bricks=None):
     '''Returns a new size the first image should be so that the second one fits neatly in the longest axis'''
     new_size = base_image.size
-    scale_x, scale_y = brick_image.size
-
     if bricks:
         scale_x, scale_y = bricks, bricks
+    else:
+        scale_x, scale_y = brick_image.size
 
     if new_size[0] > scale_x or new_size[1] > scale_y:
         if new_size[0] < new_size[1]:
@@ -151,9 +151,6 @@ def legofy_image(base_image, brick_image, output_path, bricks):
 
 def main(image_path, output=None, bricks=None, brick_path=None):
     '''Legofy image or gif with brick_path mask'''
-    if brick_path is None:
-        brick_path = os.path.join(os.path.dirname(__file__), "bricks", "brick.png")
-
     if os.name == "nt" and os.environ.get('MAGICK_HOME') == None:
         print('Could not find the MAGICK_HOME environment variable.')
         sys.exit(1)
@@ -163,7 +160,11 @@ def main(image_path, output=None, bricks=None, brick_path=None):
         print('File "{0}" was not found.'.format(image_path))
         sys.exit(1)
 
-    brick_path = os.path.realpath(brick_path)
+    if brick_path is None:
+        brick_path = os.path.join(os.path.dirname(__file__), "assets", "bricks", "1x1.png")
+    else:
+        brick_path = os.path.realpath(brick_path)
+
     if not os.path.isfile(brick_path):
         print('Brick asset "{0}" was not found.'.format(brick_path))
         sys.exit(1)
