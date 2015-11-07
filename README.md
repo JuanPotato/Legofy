@@ -18,7 +18,9 @@ Legofy is a python program that takes a static image or gif and makes it so that
 * Make an optional argument to only allow official lego colors
 
 ### Quickstart
-* `git clone https://github.com/JuanPotato/Legofy.git`
-* `cd Legofy`
-* `python setup.py install`
-* `legofy image.jpg` - anywhere
+```
+$ git clone https://github.com/JuanPotato/Legofy.git
+$ cd Legofy
+$ python setup.py install
+$ legofy image.jpg - anywhere
+```
