@@ -162,7 +162,7 @@ def get_new_size(base_image, brick_image, bricks=None):
     return new_size
 
 
-def legofy_gif(base_image, brick_image, output_path, bricks):
+def legofy_gif(base_image, brick_image, output_path, bricks, palette):
     '''Legofy an animated GIF'''
     new_size = get_new_size(base_image, brick_image, bricks)
     tmp_dir = os.path.join(os.path.dirname(__file__), "tmp_frames")
