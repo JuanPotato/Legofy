@@ -162,6 +162,25 @@ def get_new_size(base_image, brick_image, bricks=None):
     return new_size
 
 
+def make_lego_palette(image, palette):
+    palette_image = Image.new("P", (1, 1))
+
+    if (palette == 'solid'):
+        palette_use = palette_solid
+    elif (palette == 'transparent'):
+        palette_use = palette_transparent
+    elif (palette == 'effects'):
+        palette_use = palette_effects
+    elif (palette == 'mono'):
+        palette_use = palette_mono
+    else:
+        palette_use = palette_solid + palette_transparent + palette_effects
+
+    palette_image.putpalette(palette_use + (0x02, 0x02, 0x02) * (256 - len(palette_use)/3))
+
+    return image.convert("RGB").quantize(palette=palette_image)
+
+
 def legofy_gif(base_image, brick_image, output_path, bricks, palette):
     '''Legofy an animated GIF'''
     new_size = get_new_size(base_image, brick_image, bricks)
