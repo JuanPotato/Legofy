@@ -214,7 +214,7 @@ def legofy_image(base_image, brick_image, output_path, bricks):
     make_lego_image(base_image, brick_image).save(output_path)
 
 
-def main(image_path, output=None, bricks=None, brick_path=None):
+def main(image_path, output=None, bricks=None, brick_path=None, palette=None):
     '''Legofy image or gif with brick_path mask'''
     if os.name == "nt" and os.environ.get('MAGICK_HOME') == None:
         print('Could not find the MAGICK_HOME environment variable.')
@@ -247,13 +247,13 @@ def main(image_path, output=None, bricks=None, brick_path=None):
         if output:
             output_path = "{0}.gif".format(output)
         print("Animated gif detected, will now legofy to {0}".format(output_path))
-        legofy_gif(base_image, brick_image, output_path, bricks)
+        legofy_gif(base_image, brick_image, output_path, bricks, palette)
     else:
         output_path = get_new_filename(image_path, '.png')
 
         if output:
             output_path = "{0}.png".format(output)
         print("Static image detected, will now legofy to {0}".format(output_path))
-        legofy_image(base_image, brick_image, output_path, bricks)
+        legofy_image(base_image, brick_image, output_path, bricks, palette)
 
     print("Finished!")
