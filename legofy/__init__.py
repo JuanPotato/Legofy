@@ -109,7 +109,7 @@ def make_lego_brick(brick_image, overlay_red, overlay_green, overlay_blue):
     return apply_effect(brick_image.copy(), overlay_red, overlay_green, overlay_blue)
 
 
-def make_lego_image(base_image, brick_image):
+def make_lego_image(base_image, brick_image, palette):
     '''Create a lego version of an image from an image'''
     base_width, base_height = base_image.size
     brick_width, brick_height = brick_image.size
@@ -119,7 +119,16 @@ def make_lego_image(base_image, brick_image):
 
     for x in range(base_width):
         for y in range(base_height):
-            bp = base_poa[x, y]
+
+            if palette:
+                tmp_color = '#%02x%02x%02x' % base_poa[x, y]
+                tmp_image = Image.new("RGB", (1, 1), tmp_color)
+                tmp_image = make_lego_palette(tmp_image, palette)
+                tmp_image = tmp_image.convert('RGB')
+                bp = tmp_image.getpixel((0, 0))
+            else:
+                bp = base_poa[x, y]
+
             lego_image.paste(make_lego_brick(brick_image, bp[0], bp[1], bp[2]), (x * brick_width, y * brick_height, (x + 1) * brick_width, (y + 1) * brick_height))
 
     del base_poa
