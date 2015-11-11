@@ -203,15 +203,18 @@ def legofy_gif(base_image, brick_image, output_path, bricks):
     shutil.rmtree(tmp_dir)
 
 
-def legofy_image(base_image, brick_image, output_path, bricks):
+def legofy_image(base_image, brick_image, output_path, bricks, palette):
     '''Legofy an image'''
     new_size = get_new_size(base_image, brick_image, bricks)
+
+    if palette:
+        print 'LEGO Palette ' + palette + ' selected...'
 
     base_image = base_image.convert("RGB")
     if new_size != base_image.size:
         base_image.thumbnail(new_size, Image.ANTIALIAS)
 
-    make_lego_image(base_image, brick_image).save(output_path)
+    make_lego_image(base_image, brick_image, palette).save(output_path)
 
 
 def main(image_path, output=None, bricks=None, brick_path=None, palette=None):
