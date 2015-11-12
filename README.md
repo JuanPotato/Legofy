@@ -24,3 +24,12 @@ $ cd Legofy
 $ python setup.py install
 $ legofy image.jpg - anywhere
 ```
+
+### Troubleshooting
+#### Mac
+ * `ValueError: --enable-zlib requested but zlib not found, aborting.`   
+   * try `xcode-select --install` in the terminal
+ * `ValueError: --enable-jpeg requested but jpeg not found, aborting.`
+   * install [libjpeg](http://ethan.tira-thompson.com/Mac_OS_X_Ports.html)
+ * `Incompatible library version: libtiff.X requires version X or later, but libjpeg.X provides version X`
+   * Follow instructions [here](http://stackoverflow.com/a/22738746/3390376)
