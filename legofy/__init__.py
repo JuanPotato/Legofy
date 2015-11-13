@@ -28,15 +28,25 @@ def apply_effect(image, overlay_red, overlay_green, overlay_blue):
     '''Small function to apply an effect over an entire image'''
     channels = image.split()
 
-    r = channels[0].point(lambda color: overlay_red - 100 if (133 - color) > 100 else (overlay_red + 100 if (133 - color) < -100 else overlay_red - (133 - color)))
-    g = channels[1].point(lambda color: overlay_green - 100 if (133 - color) > 100 else (overlay_green + 100 if (133 - color) < -100 else overlay_green - (133 - color)))
-    b = channels[2].point(lambda color: overlay_blue - 100 if (133 - color) > 100 else (overlay_blue + 100 if (133 - color) < -100 else overlay_blue - (133 - color)))
+    r = channels[0].point(lambda color: overlay_effect(color, overlay_red))
+    g = channels[1].point(lambda color: overlay_effect(color, overlay_green))
+    b = channels[2].point(lambda color: overlay_effect(color, overlay_blue))
+
 
     channels[0].paste(r)
     channels[1].paste(g)
     channels[2].paste(b)
 
     return Image.merge(image.mode, channels)
+
+def overlay_effect(color, overlay):
+    '''Actual overlay effect function'''
+    if (133 - color) > 100:
+        return overlay - 100
+    elif 133 - color < - 100:
+        return overlay + 100
+    else:
+        return overlay - (133 - color)
 
 
 def make_lego_brick(brick_image, overlay_red, overlay_green, overlay_blue):
