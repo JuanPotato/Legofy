@@ -1,2 +1,3 @@
-pillow==3.0.0
-click==5.1
+pillow>=3.0.0
+click>=5.1
+numpy>=1.10.0
