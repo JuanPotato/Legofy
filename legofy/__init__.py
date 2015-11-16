@@ -161,13 +161,13 @@ def make_lego_image(base_image, brick_image, palette):
 
         for code, value in palette_selected.iteritems():
             if value == search_color:
-                print 'Brick LEGO ' + code,
+                print 'Brick LEGO {0}'.format(code),
                 break
 
-        print '(' + color + ') :', color_map[color]
+        print '({0}): {1}'.format(color, color_map[color])
         total += color_map[color]
 
-    print "Total:", total
+    print 'Total: {0}'.format(total)
 
     return lego_image
 
@@ -235,7 +235,7 @@ def legofy_gif(base_image, brick_image, output_path, bricks, palette):
     new_size = get_new_size(base_image, brick_image, bricks)
 
     if palette:
-        print 'LEGO Palette ' + palette.title() + ' selected...'
+        print 'LEGO Palette {0} selected...'.format(palette.title())
 
     tmp_dir = os.path.join(os.path.dirname(__file__), "tmp_frames")
     # Clean up tmp dir if it exists
@@ -280,7 +280,7 @@ def legofy_image(base_image, brick_image, output_path, bricks, palette):
     new_size = get_new_size(base_image, brick_image, bricks)
 
     if palette:
-        print 'LEGO Palette ' + palette.title() + ' selected...'
+        print 'LEGO Palette {0} selected...'.format(palette.title())
 
     base_image = base_image.convert("RGB")
     if new_size != base_image.size:
