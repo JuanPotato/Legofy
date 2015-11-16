@@ -233,6 +233,10 @@ def make_lego_palette(image, palette, dither=False):
 def legofy_gif(base_image, brick_image, output_path, bricks, palette):
     '''Legofy an animated GIF'''
     new_size = get_new_size(base_image, brick_image, bricks)
+
+    if palette:
+        print 'LEGO Palette ' + palette.title() + ' selected...'
+
     tmp_dir = os.path.join(os.path.dirname(__file__), "tmp_frames")
     # Clean up tmp dir if it exists
     if os.path.exists(tmp_dir):
@@ -251,7 +255,7 @@ def legofy_gif(base_image, brick_image, output_path, bricks, palette):
             image = Image.open("{0}/{1}".format(tmp_dir, frame)).convert("RGBA")
             if new_size != base_image.size:
                 image.thumbnail(new_size, Image.ANTIALIAS)
-            make_lego_image(image, brick_image).save("{0}/{1}".format(tmp_dir, frame))
+            make_lego_image(image, brick_image, palette).save("{0}/{1}".format(tmp_dir, frame))
 
     # make new gif "convert -delay 10 -loop 0 *.png animation.gif"
     delay = str(base_image.info["duration"] / 10)
