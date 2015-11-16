@@ -161,10 +161,9 @@ def make_lego_image(base_image, brick_image, palette):
 
         for code, value in palette_selected.iteritems():
             if value == search_color:
-                print 'Brick LEGO {0}'.format(code),
                 break
 
-        print '({0}): {1}'.format(color, color_map[color])
+        print 'Brick LEGO {0} ({1}): {2}'.format(code, color, color_map[color])
         total += color_map[color]
 
     print 'Total: {0}'.format(total)
