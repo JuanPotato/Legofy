@@ -28,6 +28,19 @@ $ python setup.py install
 $ legofy image.jpg # anywhere
 ```
 
+### LEGO color palette as of 2010
+It's possible to force Legofy to use the official LEGO color palette.
+In fact, it seems that there are 3 palettes: solid (33 colors), transparent (14 colors) and effects (4 colors).
+You can use one of them or all the 3.
+```
+$ legofy --palette solid image.jpg 
+$ legofy --palette transparent image.jpg 
+$ legofy --palette effects image.jpg 
+$ legofy --palette all image.jpg 
+```
+There is another one palette, mono, with only 2 colors (black and white...). It's just for test and fun...
+
+
 ### Troubleshooting
 #### Mac
  * `ValueError: --enable-zlib requested but zlib not found, aborting.`   
