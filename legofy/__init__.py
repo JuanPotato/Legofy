@@ -145,28 +145,29 @@ def make_lego_image(base_image, brick_image, palette):
 
     total = 0
 
-    if (palette == 'solid'):
-        palette_selected = dict(palette_solid.items())
-    elif (palette == 'transparent'):
-        palette_selected = dict(palette_transparent.items())
-    elif (palette == 'effects'):
-        palette_selected = dict(palette_effects.items())
-    elif (palette == 'mono'):
-        palette_selected = dict(palette_mono.items())
-    else:
-        palette_selected = dict(palette_solid.items() + palette_transparent.items() + palette_effects.items())
+    if palette:
+        if (palette == 'solid'):
+            palette_selected = dict(palette_solid.items())
+        elif (palette == 'transparent'):
+            palette_selected = dict(palette_transparent.items())
+        elif (palette == 'effects'):
+            palette_selected = dict(palette_effects.items())
+        elif (palette == 'mono'):
+            palette_selected = dict(palette_mono.items())
+        else:
+            palette_selected = dict(palette_solid.items() + palette_transparent.items() + palette_effects.items())
 
-    for color in sorted(color_map, key=color_map.get, reverse=True):
-        search_color = [int(color[1:3], 16), int(color[3:5], 16), int(color[5:7], 16)]
+        for color in sorted(color_map, key=color_map.get, reverse=True):
+            search_color = [int(color[1:3], 16), int(color[3:5], 16), int(color[5:7], 16)]
 
-        for code, value in palette_selected.iteritems():
-            if value == search_color:
-                break
+            for code, value in palette_selected.iteritems():
+                if value == search_color:
+                    break
 
-        print ("Brick LEGO {0} ({1}): {2}".format(code, color, color_map[color]))
-        total += color_map[color]
+            print ("Brick LEGO {0} ({1}): {2}".format(code, color, color_map[color]))
+            total += color_map[color]
 
-    print ("Total: {0}".format(total))
+        print ("Total: {0}".format(total))
 
     return lego_image
 
