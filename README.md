@@ -35,7 +35,7 @@ $ legofy --palette transparent image.jpg
 $ legofy --palette effects image.jpg 
 $ legofy --palette all image.jpg 
 ```
-There is another one palette, mono, with only 2 colors (black and white...). It's just for fun...
+There is another one palette, mono, with only 2 colors (black and white...). It's just for test and fun...
 
 
 ### Troubleshooting
