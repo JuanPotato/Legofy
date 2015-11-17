@@ -27,9 +27,13 @@ $ python setup.py install
 $ legofy image.jpg # anywhere
 ```
 
-### LEGO color palette as of 2010
-It's possible to force Legofy to use the official LEGO color palette.
-In fact, it seems that there are 3 palettes: solid (33 colors), transparent (14 colors) and effects (4 colors).
+### Options
+ * `--bricks number` - specify the largest amount of bricks a side of the resulting image should have. (eg. make the legofied image bigger)
+ * `--brick brick` - specify the brick asset to be used in legofying. Should be a 30x30 greyscale image close to 128,128,128 as the base color. 
+ * `--palette` - specify the palette used, allows you to use only lego colors, see below.
+
+#### Palette
+There are 3 palettes: solid (33 colors), transparent (14 colors) and effects (4 colors).
 You can use one of them or all the 3.
 ```
 $ legofy --palette solid image.jpg 
