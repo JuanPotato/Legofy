@@ -5,7 +5,7 @@ from subprocess import call
 import shutil
 import sys
 import os
-from images2gif import images2gif
+import images2gif
 
 def iter_frames(image_to_iter):
     '''Function that iterates over the gif's frames'''
