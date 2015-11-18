@@ -1,4 +1,4 @@
-# Legofy [![Build Status](https://travis-ci.org/JuanPotato/Legofy.svg?branch=master)](https://travis-ci.org/JuanPotato/Legofy) [![Join the chat at https://gitter.im/JuanPotato/Legofy](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/JuanPotato/Legofy?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=6G74RZQ9NWYE6&lc=US&item_name=Legofy%20%2d%20Donations&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted)
+# Legofy [![Build Status](https://travis-ci.org/JuanPotato/Legofy.svg?branch=master)](https://travis-ci.org/JuanPotato/Legofy) [![Coverage Status](https://coveralls.io/repos/niroyb/Legofy/badge.svg?branch=coverage&service=github)](https://coveralls.io/github/niroyb/Legofy?branch=coverage) [![Join the chat at https://gitter.im/JuanPotato/Legofy](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/JuanPotato/Legofy?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ### What is it?
 Legofy is a python program that takes a static image or gif and makes it so that it looks as if it was built out of LEGO.
@@ -29,24 +29,24 @@ $ legofy image.jpg # anywhere
 
 ### Options
  * `--bricks number` - specify the largest amount of bricks a side of the resulting image should have. (eg. make the legofied image bigger)
- * `--brick brick` - specify the brick asset to be used in legofying. Should be a 30x30 greyscale image close to 128,128,128 as the base color. 
+ * `--brick brick` - specify the brick asset to be used in legofying. Should be a 30x30 greyscale image close to 128,128,128 as the base color.
  * `--palette` - specify the palette used, allows you to use only lego colors, see below.
 
 #### Palette
 There are 3 palettes: solid (33 colors), transparent (14 colors) and effects (4 colors).
 You can use one of them or all the 3.
 ```
-$ legofy --palette solid image.jpg 
-$ legofy --palette transparent image.jpg 
-$ legofy --palette effects image.jpg 
-$ legofy --palette all image.jpg 
+$ legofy --palette solid image.jpg
+$ legofy --palette transparent image.jpg
+$ legofy --palette effects image.jpg
+$ legofy --palette all image.jpg
 ```
 There is another one palette, mono, with only 2 colors (black and white...). It's just for test and fun...
 
 
 ### Troubleshooting
 #### Mac
- * `ValueError: --enable-zlib requested but zlib not found, aborting.`   
+ * `ValueError: --enable-zlib requested but zlib not found, aborting.`
    * try `xcode-select --install` in the terminal
  * `ValueError: --enable-jpeg requested but jpeg not found, aborting.`
    * install [libjpeg](http://ethan.tira-thompson.com/Mac_OS_X_Ports.html)

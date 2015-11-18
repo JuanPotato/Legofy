@@ -1,11 +1,13 @@
 # Use container based infrastructure
 sudo: false
 
+language: python
+
 addons:
   apt:
     packages:
     - imagemagick
-language: python
+
 python:
   - "2.6"
   - "2.7"
@@ -14,7 +16,16 @@ python:
   - "3.5"
   - "3.5-dev" # 3.5 development branch
   - "nightly" # currently points to 3.6-dev
+
+install:
+  - pip install --quiet -r requirements.txt
+  # Separate the coveralls package because it is only a test requirement
+  - pip install --quiet coveralls
+
 script:
-  - python setup.py test
+  - nosetests --with-coverage --cover-package=legofy
   - python setup.py install
   - legofy legofy/assets/flower.jpg flower_lego.png
+
+after_success:
+  - coveralls

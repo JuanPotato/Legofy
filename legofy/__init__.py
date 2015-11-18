@@ -1,10 +1,11 @@
 from __future__ import unicode_literals
 
-from PIL import Image
-from subprocess import call
-import shutil
-import sys
 import os
+from PIL import Image
+import shutil
+from subprocess import call
+import sys
+
 
 '''http://www.brickjournal.com/files/PDFs/2010LEGOcolorpalette.pdf'''
 palette_solid = {
@@ -119,8 +120,6 @@ def make_lego_brick(brick_image, overlay_red, overlay_green, overlay_blue):
 
 def make_lego_image(base_image, brick_image, palette):
     '''Create a lego version of an image from an image'''
-    color_map = {}
-
     base_width, base_height = base_image.size
     brick_width, brick_height = brick_image.size
 
@@ -134,41 +133,8 @@ def make_lego_image(base_image, brick_image, palette):
 
     for x in range(base_width):
         for y in range(base_height):
-            bp = base_poa.getpixel((x, y))
-            bph = '#%02x%02x%02x' % bp
-            if bph in color_map:
-                color_map[bph] += 1
-            else:
-                color_map[bph] = 1
-
-            lego_image.paste(make_lego_brick(brick_image, bp[0], bp[1], bp[2]), (x * brick_width, y * brick_height, (x + 1) * brick_width, (y + 1) * brick_height))
-
-    total = 0
-
-    if palette:
-        if (palette == 'solid'):
-            palette_selected = dict(palette_solid.items())
-        elif (palette == 'transparent'):
-            palette_selected = dict(palette_transparent.items())
-        elif (palette == 'effects'):
-            palette_selected = dict(palette_effects.items())
-        elif (palette == 'mono'):
-            palette_selected = dict(palette_mono.items())
-        else:
-            palette_selected = dict(palette_solid.items() + palette_transparent.items() + palette_effects.items())
-
-        for color in sorted(color_map, key=color_map.get, reverse=True):
-            search_color = [int(color[1:3], 16), int(color[3:5], 16), int(color[5:7], 16)]
-
-            for code, value in palette_selected.iteritems():
-                if value == search_color:
-                    break
-
-            print ("Brick LEGO {0} ({1}): {2}".format(code, color, color_map[color]))
-            total += color_map[color]
-
-        print ("Total: {0}".format(total))
-
+            bp = base_poa.getpixel((x, y))            
+            lego_image.paste(make_lego_brick(brick_image, bp[0], bp[1], bp[2]), (x * brick_width, y * brick_height))
     return lego_image
 
 
@@ -208,6 +174,7 @@ def get_new_size(base_image, brick_image, bricks=None):
 
 
 def make_lego_palette(image, palette, dither=False):
+    '''Converts the image colors to the specified lego palette'''
     palette_use = ()
     palette_image = Image.new("P", (1, 1))
 
@@ -220,12 +187,12 @@ def make_lego_palette(image, palette, dither=False):
     elif (palette == 'mono'):
         palette_selected = dict(palette_mono.items())
     else:
-        palette_selected = dict(palette_solid.items() + palette_transparent.items() + palette_effects.items())
+        palette_selected = dict(list(palette_solid.items()) + list(palette_transparent.items()) + list(palette_effects.items()))
 
     for color in palette_selected:
         palette_use = palette_use + tuple(palette_selected[color])
 
-    palette_image.putpalette(palette_use + tuple(palette_complete[palette]) * (256 - len(palette_use)/3))
+    palette_image.putpalette(palette_use + tuple(palette_complete[palette]) * (256 - int(len(palette_use)/3)))
 
     return image.im.convert("P", 1 if dither else 0, palette_image.im)
 
