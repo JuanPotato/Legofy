@@ -1,4 +1,5 @@
-# Legofy [![Build Status](https://travis-ci.org/JuanPotato/Legofy.svg?branch=master)](https://travis-ci.org/JuanPotato/Legofy) [![Coverage Status](https://coveralls.io/repos/JuanPotato/Legofy/badge.svg?branch=master&service=github)](https://coveralls.io/github/JuanPotato/Legofy?branch=master) [![Join the chat at https://gitter.im/JuanPotato/Legofy](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/JuanPotato/Legofy?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+# Legofy [![Build Status](https://travis-ci.org/JuanPotato/Legofy.svg?branch=master)](https://travis-ci.org/JuanPotato/Legofy) [![Coverage Status](https://coveralls.io/repos/JuanPotato/Legofy/badge.svg?branch=master&service=github)](https://coveralls.io/github/JuanPotato/Legofy?branch=master) [![Code Health](https://landscape.io/github/JuanPotato/Legofy/master/landscape.svg?style=flat)](https://landscape.io/github/JuanPotato/Legofy/master) [![Join the chat at https://gitter.im/JuanPotato/Legofy](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/JuanPotato/Legofy?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 
 ### What is it?
 Legofy is a python program that takes a static image or gif and makes it so that it looks as if it was built out of LEGO.
