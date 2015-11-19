@@ -49,8 +49,16 @@ class CreateFileTestCase(unittest.TestCase):
         image_path = os.path.join(self.test_dir, '..', 'legofy', 'assets', 'flower.jpg')
         self.assertTrue(os.path.exists(image_path),
                         "Could not find image : {0}".format(image_path))
-
         legofy.main(image_path, output=self.out_path, palette='all')
+        self.assertTrue(os.path.getsize(self.out_path) > 0)
+
+    def test_legofy_dither(self):
+        '''Can we use dither with a palette?'''
+        self.create_tmpfile('.png')
+        image_path = os.path.join(self.test_dir, '..', 'legofy', 'assets', 'flower.jpg')
+        self.assertTrue(os.path.exists(image_path),
+                        "Could not find image : {0}".format(image_path))
+        legofy.main(image_path, output=self.out_path, palette='all', dither=True)
         self.assertTrue(os.path.getsize(self.out_path) > 0)
 
 if __name__ == '__main__':

@@ -118,7 +118,7 @@ def make_lego_brick(brick_image, overlay_red, overlay_green, overlay_blue):
     return apply_effect(brick_image.copy(), overlay_red, overlay_green, overlay_blue)
 
 
-def make_lego_image(base_image, brick_image, palette):
+def make_lego_image(base_image, brick_image, palette, dither):
     '''Create a lego version of an image from an image'''
     base_width, base_height = base_image.size
     brick_width, brick_height = brick_image.size
@@ -126,7 +126,7 @@ def make_lego_image(base_image, brick_image, palette):
     base_poa = base_image.convert('RGB')
 
     if palette:
-        base_poa = make_lego_palette(base_poa, palette, False)
+        base_poa = make_lego_palette(base_poa, palette, dither)
         base_poa = base_poa.convert('RGB')
 
     lego_image = Image.new("RGB", (base_width * brick_width, base_height * brick_height), "white")
@@ -173,7 +173,7 @@ def get_new_size(base_image, brick_image, bricks=None):
     return new_size
 
 
-def make_lego_palette(image, palette, dither=False):
+def make_lego_palette(image, palette, dither):
     '''Converts the image colors to the specified lego palette'''
     palette_use = ()
     palette_image = Image.new("P", (1, 1))
@@ -197,7 +197,7 @@ def make_lego_palette(image, palette, dither=False):
     return image.im.convert("P", 1 if dither else 0, palette_image.im)
 
 
-def legofy_gif(base_image, brick_image, output_path, bricks, palette):
+def legofy_gif(base_image, brick_image, output_path, bricks, palette, dither):
     '''Legofy an animated GIF'''
     new_size = get_new_size(base_image, brick_image, bricks)
 
@@ -222,7 +222,7 @@ def legofy_gif(base_image, brick_image, output_path, bricks, palette):
             image = Image.open("{0}/{1}".format(tmp_dir, frame)).convert("RGBA")
             if new_size != base_image.size:
                 image.thumbnail(new_size, Image.ANTIALIAS)
-            make_lego_image(image, brick_image, palette).save("{0}/{1}".format(tmp_dir, frame))
+            make_lego_image(image, brick_image, palette, dither).save("{0}/{1}".format(tmp_dir, frame))
 
     # make new gif "convert -delay 10 -loop 0 *.png animation.gif"
     delay = str(base_image.info["duration"] / 10)
@@ -242,7 +242,7 @@ def legofy_gif(base_image, brick_image, output_path, bricks, palette):
     shutil.rmtree(tmp_dir)
 
 
-def legofy_image(base_image, brick_image, output_path, bricks, palette):
+def legofy_image(base_image, brick_image, output_path, bricks, palette, dither):
     '''Legofy an image'''
     new_size = get_new_size(base_image, brick_image, bricks)
 
@@ -253,10 +253,10 @@ def legofy_image(base_image, brick_image, output_path, bricks, palette):
     if new_size != base_image.size:
         base_image.thumbnail(new_size, Image.ANTIALIAS)
 
-    make_lego_image(base_image, brick_image, palette).save(output_path)
+    make_lego_image(base_image, brick_image, palette, dither).save(output_path)
 
 
-def main(image_path, output=None, bricks=None, brick_path=None, palette=None):
+def main(image_path, output=None, bricks=None, brick_path=None, palette=None, dither=False):
     '''Legofy image or gif with brick_path mask'''
     if os.name == "nt" and os.environ.get('MAGICK_HOME') == None:
         print('Could not find the MAGICK_HOME environment variable.')
@@ -289,13 +289,13 @@ def main(image_path, output=None, bricks=None, brick_path=None, palette=None):
         if output:
             output_path = "{0}.gif".format(output)
         print("Animated gif detected, will now legofy to {0}".format(output_path))
-        legofy_gif(base_image, brick_image, output_path, bricks, palette)
+        legofy_gif(base_image, brick_image, output_path, bricks, palette, dither)
     else:
         output_path = get_new_filename(image_path, '.png')
 
         if output:
             output_path = "{0}.png".format(output)
         print("Static image detected, will now legofy to {0}".format(output_path))
-        legofy_image(base_image, brick_image, output_path, bricks, palette)
+        legofy_image(base_image, brick_image, output_path, bricks, palette, dither)
 
     print("Finished!")
