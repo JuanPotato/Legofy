@@ -175,7 +175,7 @@ def get_lego_palette(palette_mode):
         palette = palette_mono.values()
     else:
         # All palettes 
-        palette = palette_solid.values() + palette_transparent.values() + palette_effects.values()
+        palette = list(palette_solid.values()) + list(palette_transparent.values()) + list(palette_effects.values())
 
     # Flatten array of color triples
     palette = [item for sublist in palette for item in sublist]
@@ -183,7 +183,7 @@ def get_lego_palette(palette_mode):
     
     # Repeat the first color so that the palette has 256 colors
     first_color = palette[0:3]
-    missing_colors = 256 - len(palette)/3
+    missing_colors = int(256 - len(palette)/3)
     padding = first_color * missing_colors
     palette += padding
     assert len(palette) == 768
@@ -286,4 +286,6 @@ def main(image_path, output_path=None, bricks=None, brick_path=None, palette_mod
         print("Static image detected, will now legofy to {0}".format(output_path))
         legofy_image(base_image, brick_image, output_path, bricks, palette_mode)
 
+    base_image.close()
+    brick_image.close()
     print("Finished!")
