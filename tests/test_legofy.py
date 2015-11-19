@@ -31,7 +31,7 @@ class CreateFileTestCase(unittest.TestCase):
         self.assertTrue(os.path.exists(image_path),
                         "Could not find image : {0}".format(image_path))
 
-        legofy.main(image_path, output=self.out_path)
+        legofy.main(image_path, output_path=self.out_path)
         self.assertTrue(os.path.getsize(self.out_path) > 0)
 
     def test_legofy_gif(self):
@@ -40,7 +40,7 @@ class CreateFileTestCase(unittest.TestCase):
         gif_path = os.path.join(self.test_dir, '..', 'legofy', 'assets', 'bacon.gif')
         self.assertTrue(os.path.exists(gif_path),
                         "Could not find image : {0}".format(gif_path))
-        legofy.main(gif_path, output=self.out_path)
+        legofy.main(gif_path, output_path=self.out_path)
         self.assertTrue(os.path.getsize(self.out_path) > 0)
 
     def test_legofy_palette(self):
@@ -50,7 +50,7 @@ class CreateFileTestCase(unittest.TestCase):
         self.assertTrue(os.path.exists(image_path),
                         "Could not find image : {0}".format(image_path))
 
-        legofy.main(image_path, output=self.out_path, palette='all')
+        legofy.main(image_path, output_path=self.out_path, palette_mode='all')
         self.assertTrue(os.path.getsize(self.out_path) > 0)
 
 if __name__ == '__main__':

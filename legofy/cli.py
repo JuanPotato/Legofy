@@ -14,7 +14,7 @@ import legofy
 
 def main(image, output, bricks, brick, palette):
     '''Main entry point'''
-    legofy.main(image, output=output, bricks=bricks, brick_path=brick, palette=palette)
+    legofy.main(image, output_path=output, bricks=bricks, brick_path=brick, palette_mode=palette)
 
 if __name__ == '__main__':
     main()

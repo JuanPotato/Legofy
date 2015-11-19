@@ -73,13 +73,6 @@ palette_mono = {
     "026": [0x02, 0x02, 0x02]
 }
 
-palette_complete = {
-    "all":          [0x02, 0x02, 0x02],
-    "solid":        [0x02, 0x02, 0x02],
-    "transparent":  [0xa6, 0x91, 0x82],
-    "effects":      [0x49, 0x3f, 0x3b],
-    "mono":         [0x02, 0x02, 0x02]
-}
 
 def iter_frames(image_to_iter):
     '''Function that iterates over the gif's frames'''
@@ -98,8 +91,9 @@ def iter_frames(image_to_iter):
         pass
 
 
-def apply_effect(image, overlay_red, overlay_green, overlay_blue):
+def apply_effect(image, color):
     '''Small function to apply an effect over an entire image'''
+    overlay_red, overlay_green, overlay_blue = color
     channels = image.split()
 
     r = channels[0].point(lambda color: overlay_red - 100 if (133 - color) > 100 else (overlay_red + 100 if (133 - color) < -100 else overlay_red - (133 - color)))
@@ -113,28 +107,24 @@ def apply_effect(image, overlay_red, overlay_green, overlay_blue):
     return Image.merge(image.mode, channels)
 
 
-def make_lego_brick(brick_image, overlay_red, overlay_green, overlay_blue):
+def make_lego_brick(brick_image, color):
     '''Create a lego brick from a single color'''
-    return apply_effect(brick_image.copy(), overlay_red, overlay_green, overlay_blue)
+    return apply_effect(brick_image.copy(), color)
 
 
-def make_lego_image(base_image, brick_image, palette):
+def make_lego_image(thumbnail_image, brick_image):
     '''Create a lego version of an image from an image'''
-    base_width, base_height = base_image.size
+    base_width, base_height = thumbnail_image.size
     brick_width, brick_height = brick_image.size
 
-    base_poa = base_image.convert('RGB')
-
-    if palette:
-        base_poa = make_lego_palette(base_poa, palette, False)
-        base_poa = base_poa.convert('RGB')
+    rgb_image = thumbnail_image.convert('RGB')
 
     lego_image = Image.new("RGB", (base_width * brick_width, base_height * brick_height), "white")
 
     for x in range(base_width):
         for y in range(base_height):
-            bp = base_poa.getpixel((x, y))            
-            lego_image.paste(make_lego_brick(brick_image, bp[0], bp[1], bp[2]), (x * brick_width, y * brick_height))
+            color = rgb_image.getpixel((x, y))
+            lego_image.paste(make_lego_brick(brick_image, color), (x * brick_width, y * brick_height))
     return lego_image
 
 
@@ -173,36 +163,47 @@ def get_new_size(base_image, brick_image, bricks=None):
     return new_size
 
 
-def make_lego_palette(image, palette, dither=False):
-    '''Converts the image colors to the specified lego palette'''
-    palette_use = ()
-    palette_image = Image.new("P", (1, 1))
-
-    if (palette == 'solid'):
-        palette_selected = dict(palette_solid.items())
-    elif (palette == 'transparent'):
-        palette_selected = dict(palette_transparent.items())
-    elif (palette == 'effects'):
-        palette_selected = dict(palette_effects.items())
-    elif (palette == 'mono'):
-        palette_selected = dict(palette_mono.items())
+def get_lego_palette(palette_mode):
+    '''Gets the palette for the specified lego palette mode'''
+    if (palette_mode == 'solid'):
+        palette = palette_solid.values()
+    elif (palette_mode == 'transparent'):
+        palette = palette_transparent.values()
+    elif (palette_mode == 'effects'):
+        palette = palette_effects.values()
+    elif (palette_mode == 'mono'):
+        palette = palette_mono.values()
     else:
-        palette_selected = dict(list(palette_solid.items()) + list(palette_transparent.items()) + list(palette_effects.items()))
+        # All palettes 
+        palette = palette_solid.values() + palette_transparent.values() + palette_effects.values()
 
-    for color in palette_selected:
-        palette_use = palette_use + tuple(palette_selected[color])
+    # Flatten array of color triples
+    palette = [item for sublist in palette for item in sublist]
+    assert len(palette) % 3 == 0
+    
+    # Repeat the first color so that the palette has 256 colors
+    first_color = palette[0:3]
+    missing_colors = 256 - len(palette)/3
+    padding = first_color * missing_colors
+    palette += padding
+    assert len(palette) == 768
+ 
+    return palette
 
-    palette_image.putpalette(palette_use + tuple(palette_complete[palette]) * (256 - int(len(palette_use)/3)))
+def apply_thumbnail_effects(image, palette_mode, dither):
+    '''Apply effects on the reduced image before Legofying'''
+    if palette_mode:
+        palette_image = Image.new("P", (1, 1))
+        palette = get_lego_palette(palette_mode)
+        palette_image.putpalette(palette)
+        return image.im.convert("P",
+                            Image.FLOYDSTEINBERG if dither else Image.NONE,
+                            palette_image.im)
+    return image
 
-    return image.im.convert("P", 1 if dither else 0, palette_image.im)
-
-
-def legofy_gif(base_image, brick_image, output_path, bricks, palette):
+def legofy_gif(base_image, brick_image, output_path, bricks, palette_mode):
     '''Legofy an animated GIF'''
     new_size = get_new_size(base_image, brick_image, bricks)
-
-    if palette:
-        print ("LEGO Palette {0} selected...".format(palette.title()))
 
     tmp_dir = os.path.join(os.path.dirname(__file__), "tmp_frames")
     # Clean up tmp dir if it exists
@@ -210,19 +211,17 @@ def legofy_gif(base_image, brick_image, output_path, bricks, palette):
         shutil.rmtree(tmp_dir)
     os.makedirs(tmp_dir)
 
-    # for each frame in the gif, save it
-    for i, frame in enumerate(iter_frames(base_image), 1):
-        frame.save('%s/frame_%04d.png' % (tmp_dir, i), **frame.info)
-
+    # Apply effects on all frames of gif
+    frames = []
+    for frame in iter_frames(base_image):
+        frame.thumbnail(new_size, Image.ANTIALIAS)
+        frame = apply_thumbnail_effects(frame, palette_mode, True)
+        frames.append(frame)
+        
     # make lego images from gif
-    print("Converting {0} frames".format(i))
-    for frame in os.listdir(tmp_dir):
-        if frame.endswith(".png"):
-            print("Working on {0}".format(frame))
-            image = Image.open("{0}/{1}".format(tmp_dir, frame)).convert("RGBA")
-            if new_size != base_image.size:
-                image.thumbnail(new_size, Image.ANTIALIAS)
-            make_lego_image(image, brick_image, palette).save("{0}/{1}".format(tmp_dir, frame))
+    for i, frame in enumerate(frames, 1):
+        print("Converting frame : {0}/{1}".format(i, len(frames)))
+        make_lego_image(frame, brick_image).save('%s/frame_%04d.png' % (tmp_dir, i))
 
     # make new gif "convert -delay 10 -loop 0 *.png animation.gif"
     delay = str(base_image.info["duration"] / 10)
@@ -242,29 +241,20 @@ def legofy_gif(base_image, brick_image, output_path, bricks, palette):
     shutil.rmtree(tmp_dir)
 
 
-def legofy_image(base_image, brick_image, output_path, bricks, palette):
+def legofy_image(base_image, brick_image, output_path, bricks, palette_mode):
     '''Legofy an image'''
     new_size = get_new_size(base_image, brick_image, bricks)
-
-    if palette:
-        print ("LEGO Palette {0} selected...".format(palette.title()))
-
-    base_image = base_image.convert("RGB")
-    if new_size != base_image.size:
-        base_image.thumbnail(new_size, Image.ANTIALIAS)
-
-    make_lego_image(base_image, brick_image, palette).save(output_path)
+    base_image.thumbnail(new_size, Image.ANTIALIAS)
+    base_image = apply_thumbnail_effects(base_image, palette_mode, True)
+    
+    make_lego_image(base_image, brick_image).save(output_path)
 
 
-def main(image_path, output=None, bricks=None, brick_path=None, palette=None):
+def main(image_path, output_path=None, bricks=None, brick_path=None, palette_mode=None):
     '''Legofy image or gif with brick_path mask'''
-    if os.name == "nt" and os.environ.get('MAGICK_HOME') == None:
-        print('Could not find the MAGICK_HOME environment variable.')
-        sys.exit(1)
-
     image_path = os.path.realpath(image_path)
     if not os.path.isfile(image_path):
-        print('File "{0}" was not found.'.format(image_path))
+        print('Image file "{0}" was not found.'.format(image_path))
         sys.exit(1)
 
     if brick_path is None:
@@ -276,26 +266,24 @@ def main(image_path, output=None, bricks=None, brick_path=None, palette=None):
         print('Brick asset "{0}" was not found.'.format(brick_path))
         sys.exit(1)
 
-    if output:
-        output = os.path.realpath(output)
-        output = os.path.splitext(output)[0]
-
     base_image = Image.open(image_path)
     brick_image = Image.open(brick_path)
+    if palette_mode:
+        print ("LEGO Palette {0} selected...".format(palette_mode.title()))
 
     if image_path.lower().endswith(".gif") and base_image.is_animated:
-        output_path = get_new_filename(image_path)
-
-        if output:
-            output_path = "{0}.gif".format(output)
+        if os.name == "nt" and os.environ.get('MAGICK_HOME') == None:
+            print('Could not find the MAGICK_HOME environment variable.')
+            sys.exit(1)
+        
+        if output_path == None:
+            output_path = get_new_filename(image_path)
         print("Animated gif detected, will now legofy to {0}".format(output_path))
-        legofy_gif(base_image, brick_image, output_path, bricks, palette)
+        legofy_gif(base_image, brick_image, output_path, bricks, palette_mode)
     else:
-        output_path = get_new_filename(image_path, '.png')
-
-        if output:
-            output_path = "{0}.png".format(output)
+        if output_path == None:
+            output_path = get_new_filename(image_path, '.png')            
         print("Static image detected, will now legofy to {0}".format(output_path))
-        legofy_image(base_image, brick_image, output_path, bricks, palette)
+        legofy_image(base_image, brick_image, output_path, bricks, palette_mode)
 
     print("Finished!")
