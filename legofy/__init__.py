@@ -106,7 +106,7 @@ def get_new_size(base_image, brick_image, bricks=None):
 
     return new_size
 
-def legofy_gif_pythononly(base_image, brick_image, output_path, bricks):
+def legofy_gif(base_image, brick_image, output_path, bricks):
     '''Alternative function that legofies animated gifs, makes use of images2gif - uses numpy!'''
     im = base_image
 
@@ -121,11 +121,8 @@ def legofy_gif_pythononly(base_image, brick_image, output_path, bricks):
 
     print("Number of frames to convert: " + str(len(frames)))
 
-    i = 0
     # Iterate through single frames
-    for frame in frames:
-        i += 1
-
+    for i, frame in enumerate(frames, 1):
         print("Converting frame number " + str(i))
 
         new_size = get_new_size(frame, brick_image, bricks)
@@ -135,54 +132,8 @@ def legofy_gif_pythononly(base_image, brick_image, output_path, bricks):
         new_frame = make_lego_image(frame, brick_image)
         frames_converted.append(new_frame)
 
-    # Make use of images to gif function - slightly modified python 3.0 port of
-    images2gif.writeGif(output_path, frames_converted, duration=original_duration/1000.0, dither=0)
-
-def legofy_gif(base_image, brick_image, output_path, bricks):
-    '''Legofy an animated GIF'''
-
-    if os.name == "nt" and os.environ.get('MAGICK_HOME') == None:
-        print('Could not find the MAGICK_HOME environment variable. Trying to use legofy_gif_pythononly().')
-        legofy_gif_pythononly(base_image, brick_image, output_path, bricks)
-    else:
-        new_size = get_new_size(base_image, brick_image, bricks)
-        tmp_dir = os.path.join(os.path.dirname(__file__), "tmp_frames")
-        # Clean up tmp dir if it exists
-        if os.path.exists(tmp_dir):
-            shutil.rmtree(tmp_dir)
-        os.makedirs(tmp_dir)
-
-        # for each frame in the gif, save it
-        for i, frame in enumerate(iter_frames(base_image), 1):
-            frame.save('%s/frame_%04d.png' % (tmp_dir, i), **frame.info)
-
-        # make lego images from gif
-        print("Converting {0} frames".format(i))
-        for frame in os.listdir(tmp_dir):
-            if frame.endswith(".png"):
-                print("Working on {0}".format(frame))
-                image = Image.open("{0}/{1}".format(tmp_dir, frame)).convert("RGBA")
-                if new_size != base_image.size:
-                    image.thumbnail(new_size, Image.ANTIALIAS)
-                make_lego_image(image, brick_image).save("{0}/{1}".format(tmp_dir, frame))
-
-        # make new gif "convert -delay 10 -loop 0 *.png animation.gif"
-        delay = str(base_image.info["duration"] / 10)
-
-        command = ["convert", "-delay", delay, "-loop", "0", "{0}/*.png".format(tmp_dir),  "{0}".format(output_path)]
-        if os.name == "nt":
-            magick_home = os.environ.get('MAGICK_HOME')
-            magick = os.path.join(magick_home, "convert.exe")
-            command[0] = magick
-
-        print(" ".join(command))
-        print("Creating gif \"{0}\"".format(output_path))
-        ret_code = call(command)
-        if ret_code != 0:
-            print("Error creating the gif.")
-            sys.exit(1)
-        shutil.rmtree(tmp_dir)
-
+    # Make use of images to gif function
+    images2gif.writeGif(output_path, frames_converted, duration=original_duration/1000.0, dither=0, subRectangles=False)
 
 def legofy_image(base_image, brick_image, output_path, bricks):
     '''Legofy an image'''

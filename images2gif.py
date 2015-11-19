@@ -264,13 +264,15 @@ class GifWriter:
             if hasattr(im, 'flags'):
                 image_info.append(im.flags)
 
-        if isinstance(subRectangles, (tuple,list)):
+        print(subRectangles)
+
+        if isinstance(subRectangles, (tuple, list)):
             # xy given directly
             
             # Check xy
             xy = subRectangles
             if xy is None:
-                xy = (0,0)
+                xy = (0, 0)
             if hasattr(xy, '__len__'):
                 if len(xy) == len(images):
                     xy = [xxyy for xxyy in xy]
@@ -278,7 +280,7 @@ class GifWriter:
                     raise ValueError("len(xy) doesn't match amount of images.")
             else:
                 xy = [xy for im in images]
-            xy[0] = (0,0)
+            xy[0] = (0, 0)
         
         else:
             # Calculate xy using some basic image processing
