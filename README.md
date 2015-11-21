@@ -28,10 +28,19 @@ $ python setup.py install
 $ legofy image.jpg # anywhere
 ```
 
-### Options
- * `--bricks number` - specify the largest amount of bricks a side of the resulting image should have. (eg. make the legofied image bigger)
- * `--brick brick` - specify the brick asset to be used in legofying. Should be a 30x30 greyscale image close to 128,128,128 as the base color.
- * `--palette` - specify the palette used, allows you to use only lego colors, see below.
+### Usage
+```
+Usage: legofy [OPTIONS] IMAGE [OUTPUT]
+
+  Legofy an image!
+
+Options:
+  --size INTEGER                  Number of bricks the longest side of the legofied image should have.
+  --dither / --no-dither          Use dither algorithm to spread the color approximation error.
+  --palette [all|effects|mono|solid|transparent]
+                                  Palette to use based on real Lego colors.
+  --help                          Show this message and exit.
+```
 
 #### Palette
 There are 3 palettes: solid (33 colors), transparent (14 colors) and effects (4 colors).
