@@ -64,9 +64,9 @@ class Create(unittest.TestCase):
         '''Can we specify the --brick parameter and is the file size
            proportional?'''
         self.create_tmpfile('.png')
-        legofy.main(FLOWER_PATH, output_path=self.out_path, bricks=5)
+        legofy.main(FLOWER_PATH, output_path=self.out_path, size=5)
         size5 = os.path.getsize(self.out_path)
-        legofy.main(FLOWER_PATH, output_path=self.out_path, bricks=10)
+        legofy.main(FLOWER_PATH, output_path=self.out_path, size=10)
         size10 = os.path.getsize(self.out_path)
         self.assertTrue(size5 > 0)
         self.assertTrue(size10 > size5)
@@ -74,14 +74,15 @@ class Create(unittest.TestCase):
     def test_small_brick(self):
         '''Test hitting the minimal brick size'''
         self.create_tmpfile('.png')
-        legofy.main(FLOWER_PATH, output_path=self.out_path, bricks=1)
+        legofy.main(FLOWER_PATH, output_path=self.out_path, size=1)
         self.assertTrue(Image.open(self.out_path).size == (30, 30))
 
     def test_dither_without_palette(self):
-        '''Dithering without a palette should work and use palette_all'''
+        '''Dithering without a palette should still work'''
         self.create_tmpfile('.png')
         legofy.main(FLOWER_PATH, output_path=self.out_path, dither=True)
         self.assertTrue(os.path.getsize(self.out_path) > 0)
+
 
 class Functions(unittest.TestCase):
     '''Test the behaviour of individual functions'''
@@ -109,14 +110,6 @@ class Failures(unittest.TestCase):
         self.assertFalse(os.path.exists(fake_path),
                          "Should not find image : {0}".format(fake_path))
         self.assertRaises(SystemExit, legofy.main, fake_path)
-
-    def test_bad_brick_path(self):
-        '''Program should fail with a non existing brick path'''
-        fake_path = os.path.join(TEST_DIR, 'fake_brick.jpg')
-        self.assertFalse(os.path.exists(fake_path),
-                         "Should not find image : {0}".format(fake_path))
-        self.assertRaises(SystemExit, legofy.main, FLOWER_PATH, 'out.jpg', 5,
-                          fake_path)
 
 if __name__ == '__main__':
     unittest.main()
