@@ -4,7 +4,6 @@ import legofy
 
 
 @click.command()
-
 @click.argument('image', required=True, type=click.Path(dir_okay=False,
                                                         exists=True,
                                                         resolve_path=True))
