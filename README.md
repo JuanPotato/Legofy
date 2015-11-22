@@ -27,6 +27,7 @@ $ cd Legofy
 $ python setup.py install
 $ legofy image.jpg # anywhere
 ```
+Wait! I don't know what any of this means? [Detailed instructions](#Installation)
 
 ### Usage
 ```
@@ -62,3 +63,13 @@ There is another one palette, mono, with only 2 colors (black and white...). It'
    * install [libjpeg](http://ethan.tira-thompson.com/Mac_OS_X_Ports.html)
  * `Incompatible library version: libtiff.X requires version X or later, but libjpeg.X provides version X`
    * Follow instructions [here](http://stackoverflow.com/a/22738746/3390376)
+
+### Installation
+1. Download and install all requirements
+ * python from the [official python website](https://www.python.org/)
+ * imagemagick from the [official imagemagick website](https://imagemagick.org/)
+2. Download this project by using the download zip button on this page, or running `git clone https://github.com/JuanPotato/Legofy`
+ * If you downloaded a zip file, please unzip it
+3. Open a command line and navigate to the project folder
+4. Run `python setup.py install` while in the project folder
+5. You can now use Legofy anywhere, see [usage](#Usage) for more help
