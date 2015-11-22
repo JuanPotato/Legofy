@@ -27,7 +27,7 @@ $ cd Legofy
 $ python setup.py install
 $ legofy image.jpg # anywhere
 ```
-Wait! I don't know what any of this means? [Detailed instructions](#Installation)
+Wait! I don't know what any of this means? [Detailed instructions](#installation)
 
 ### Usage
 ```
@@ -72,4 +72,4 @@ There is another one palette, mono, with only 2 colors (black and white...). It'
  * If you downloaded a zip file, please unzip it
 3. Open a command line and navigate to the project folder
 4. Run `python setup.py install` while in the project folder
-5. You can now use Legofy anywhere, see [usage](#Usage) for more help
+5. You can now use Legofy anywhere, see [usage](#usage) for more help
