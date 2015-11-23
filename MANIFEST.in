@@ -1,1 +1,2 @@
 recursive-include legofy/assets/bricks *.png
+include legofy/images2gif.py

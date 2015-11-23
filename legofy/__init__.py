@@ -5,7 +5,7 @@ from subprocess import call
 import shutil
 import sys
 import os
-import images2gif
+import legofy.images2gif
 
 
 '''http://www.brickjournal.com/files/PDFs/2010LEGOcolorpalette.pdf'''
