@@ -257,8 +257,13 @@ class GifWriter:
         calculated automatically.
         
         """ 
-        image_info = [im.info for im in images ]
-        if isinstance(subRectangles, (tuple,list)):
+        image_info = []
+
+        for im in images:
+            if hasattr(im, 'flags'):
+                image_info.append(im.flags)
+
+        if isinstance(subRectangles, (tuple, list)):
             # xy given directly
             
             # Check xy

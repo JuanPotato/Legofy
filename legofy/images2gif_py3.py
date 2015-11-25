@@ -264,8 +264,6 @@ class GifWriter:
             if hasattr(im, 'flags'):
                 image_info.append(im.flags)
 
-        print(subRectangles)
-
         if isinstance(subRectangles, (tuple, list)):
             # xy given directly
             
