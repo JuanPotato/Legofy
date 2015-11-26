@@ -26,6 +26,7 @@ script:
   - nosetests --with-coverage --cover-package=legofy
   - python setup.py install
   - legofy legofy/assets/flower.jpg flower_lego.png
+  - legofy --palette all legofy/assets/flower.jpg flower_lego_all.png
 
 after_success:
   - coveralls
