@@ -1,3 +1,4 @@
 recursive-include legofy/assets/bricks *.png
-include legofy/images2gif_py2.py
-include legofy/images2gif_py3.py
+include legofy/images2gif/images2gif_py2.py
+include legofy/images2gif/images2gif_py3.py
+include legofy/images2gif/__init__.py
