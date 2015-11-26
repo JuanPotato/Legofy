@@ -7,9 +7,9 @@ import os
 # Python 2 and 3 support
 # TODO: Proper images2gif version that supports both Py 2 and Py 3 (mostly handling binary data)
 if sys.version_info < (3,):
-    import legofy.images2gif.images2gif_py2 as images2gif
+    import legofy.images2gif_py2 as images2gif
 else:
-    import legofy.images2gif.images2gif_py3 as images2gif
+    import legofy.images2gif_py3 as images2gif
 
 # http://www.brickjournal.com/files/PDFs/2010LEGOcolorpalette.pdf
 PALETTE_SOLID = {
