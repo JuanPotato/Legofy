@@ -28,4 +28,4 @@ script:
   - legofy legofy/assets/flower.jpg flower_lego.png
 
 after_success:
-  - coveralls
+  - coveralls --exclude-pattern .*images2gif_py.*
