@@ -103,9 +103,9 @@ class Functions(unittest.TestCase):
 
     def test_lego_palettes(self):
         """Validate lego palettes structured properly."""
-        palettes = legofy.palettes._flatten_palettes(legofy.palettes.LEGOS)
-        for palette in palettes:
-            self.assertFalse(len(palettes[palette]) % 3)
+        legos = legofy.palettes.legos()
+        for palette in legos:
+            self.assertFalse(len(legos[palette]) % 3)
 
 
 class Failures(unittest.TestCase):
