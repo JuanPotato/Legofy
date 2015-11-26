@@ -28,4 +28,4 @@ script:
   - legofy legofy/assets/flower.jpg flower_lego.png
 
 after_success:
-  - coveralls --exclude legofy/images2gif_py2.py
+  - coveralls -e "legofy/images2gif_py2.py"
