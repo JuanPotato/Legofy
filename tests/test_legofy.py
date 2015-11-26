@@ -101,6 +101,12 @@ class Functions(unittest.TestCase):
         new_path = legofy.get_new_filename(FLOWER_PATH, '.gif')
         self.assertTrue(new_path.endswith('_lego.gif'))
 
+    def test_lego_palettes(self):
+        """Validate lego palettes structured properly."""
+        palettes = legofy.palettes._flatten_palettes(legofy.palettes.LEGOS)
+        for palette in palettes:
+            self.assertFalse(len(palettes[palette]) % 3)
+
 
 class Failures(unittest.TestCase):
     '''Make sure things fail when they should'''

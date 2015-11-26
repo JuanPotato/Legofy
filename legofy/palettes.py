@@ -86,11 +86,8 @@ LEGOS = {
 
 
 def legos():
-    """Build dict of flattened palettes."""
-    palettes = _flatten_palettes(LEGOS)
-    for palette in palettes:
-        assert not len(palettes[palette]) % 3
-    return palettes
+    """Build flattened lego palettes."""
+    return _flatten_palettes(LEGOS)
 
 
 def _flatten_palettes(palettes):
