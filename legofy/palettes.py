@@ -87,7 +87,7 @@ LEGOS = {
 
 def legos():
     """Build flattened lego palettes."""
-    return _flatten_palettes(LEGOS)
+    return _flatten_palettes(LEGOS.copy())
 
 
 def _flatten_palettes(palettes):
