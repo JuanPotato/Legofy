@@ -3,19 +3,12 @@ sudo: false
 
 language: python
 
-addons:
-  apt:
-    packages:
-    - imagemagick
-
 python:
   - "2.6"
   - "2.7"
   - "3.3"
   - "3.4"
   - "3.5"
-  - "3.5-dev" # 3.5 development branch
-  - "nightly" # currently points to 3.6-dev
 
 install:
   - pip install --quiet -r requirements.txt
@@ -25,7 +18,7 @@ install:
 script:
   - nosetests --with-coverage --cover-package=legofy
   - python setup.py install
-  - legofy legofy/assets/flower.jpg flower_lego.png
+  - legofy tests/before/flower.jpg flower_lego.png
 
 after_success:
   - coveralls

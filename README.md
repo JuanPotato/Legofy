@@ -5,15 +5,15 @@
 Legofy is a python program that takes a static image or gif and makes it so that it looks as if it was built out of LEGO.
 
 <a href="https://commons.wikimedia.org/wiki/File:Zoysia_grass_flower.jpg">
-<img alt="Before" title="Before (The inflorescence of Zoysia grass, a variety of lawn grass. Picture by Hari Krishnan)" height="500" src="legofy/assets/flower.jpg?raw=true">
+<img alt="Before" title="Before (The inflorescence of Zoysia grass, a variety of lawn grass. Picture by Hari Krishnan)"
+height="500" src="tests/before/flower.jpg?raw=true">
 </a>
-<img alt="After" title="After" height="500" src="legofy/assets/flower_lego.png?raw=true">
+<img alt="After" title="After" height="500" src="tests/after/flower_lego.png?raw=true">
 
 
 ### Requirements
 * Python
 * Python modules: Pillow, click
-* imagemagick
 
 ### Bugs
 If you find a bug:
@@ -67,7 +67,6 @@ There is another one palette, mono, with only 2 colors (black and white...). It'
 ### Installation
 1. Download and install all requirements
  * python from the [official python website](https://www.python.org/)
- * imagemagick from the [official imagemagick website](https://imagemagick.org/)
 2. Download this project by using the download zip button on this page, or running `git clone https://github.com/JuanPotato/Legofy`
  * If you downloaded a zip file, please unzip it
 3. Open a command line and navigate to the project folder
