@@ -2,3 +2,4 @@
 omit =
     legofy/images2gif_py*
     legofy/cli.py
+    legofy/legofy_gui.py
