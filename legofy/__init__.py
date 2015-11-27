@@ -88,10 +88,7 @@ def get_new_size(base_image, brick_image, size=None):
 def get_lego_palette(palette_mode):
     '''Gets the palette for the specified lego palette mode'''
     legos = palettes.legos()
-    if palette_mode in legos:
-        palette = legos[palette_mode]
-    else:
-        raise "Unkown palette mode : %s" % palette_mode
+    palette = legos[palette_mode]
 
     # Repeat the first color so that the palette has 256 colors
     first_color = palette[0:3]

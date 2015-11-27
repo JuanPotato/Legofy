@@ -1,6 +1,7 @@
 '''Command line interface to Legofy'''
 import click
 import legofy
+from legofy import palettes
 
 
 @click.command()
@@ -14,7 +15,7 @@ import legofy
 @click.option('--dither/--no-dither', default=False,
               help='Use dither algorithm to spread the color approximation error.')
 @click.option('--palette', default=None,
-              type=click.Choice(['all', 'effects', 'mono', 'solid', 'transparent']),
+              type=click.Choice([i for i in palettes.legos()]),
               help='Palette to use based on real Lego colors.')
 def main(image, output, size, palette, dither):
     '''Legofy an image!'''
