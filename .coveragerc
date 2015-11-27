@@ -1,4 +1,3 @@
 [report]
 omit =
     */legofy/images2gif_py*
-    */legofy/cli.py*
