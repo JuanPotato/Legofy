@@ -1,3 +1,3 @@
-recursive-include legofy/assets/ *.png
+include legofy/assets/1x1.png
 include legofy/images2gif_py2.py
 include legofy/images2gif_py3.py
