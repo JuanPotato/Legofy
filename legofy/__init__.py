@@ -145,14 +145,8 @@ def get_new_size(base_image, brick_image, size=None):
         else:
             scale = new_size[0] / scale_x
 
-        new_size = (int(round(new_size[0] / scale)),
-                    int(round(new_size[1] / scale)))
-
-        if not new_size[0]:
-            new_size = (1, new_size[1])
-
-        if not new_size[1]:
-            new_size = (new_size[0], 1)
+        new_size = (int(round(new_size[0] / scale)) or 1,
+                    int(round(new_size[1] / scale)) or 1)
 
     return new_size
 
