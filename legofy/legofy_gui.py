@@ -57,7 +57,7 @@ class LegofyGuiMainFrame(tk.Frame):
         options['filetypes'] = [('JPEG', '.jpg'),
                                 ('GIF', '.gif'),
                                 ('PNG', '.png'),]
-        options['initialdir'] = 'C:\\'
+        options['initialdir'] = os.path.realpath("\\")
         options['initialfile'] = ''
         options['parent'] = self
         options['title'] = 'Choose a file'
