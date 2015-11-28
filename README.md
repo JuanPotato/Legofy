@@ -9,6 +9,8 @@ Legofy is a python program that takes a static image or gif and makes it so that
 </a>
 <img alt="After" title="After" height="500" src="legofy/assets/flower_lego.png?raw=true">
 
+## Contributing
+If you want to contribute to **Legofy**, the tutorial is available in [CONTRIBUTING.md](https://github.com/JuanPotato/Legofy/blob/master/CONTRIBUTING.md)
 
 ### Requirements
 * Python
