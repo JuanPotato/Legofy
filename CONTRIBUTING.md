@@ -1,6 +1,6 @@
 # Contributing
 ## Sending a pull request
-Please test the **Legofy** script first before sending a pull request so you didnt messed up the project
+Please test the **Legofy** script first before sending a pull request to make sure you didn't mess up
 
 ## Contributors
 * Juan Potato / @JuanPotato
