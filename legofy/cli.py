@@ -15,7 +15,7 @@ from legofy import palettes
 @click.option('--dither/--no-dither', default=False,
               help='Use dither algorithm to spread the color approximation error.')
 @click.option('--palette', default=None,
-              type=click.Choice([i for i in palettes.legos()]),
+              type=click.Choice(palettes.legos().keys()),
               help='Palette to use based on real Lego colors.')
 def main(image, output, size, palette, dither):
     '''Legofy an image!'''
