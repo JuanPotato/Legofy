@@ -101,6 +101,18 @@ class Functions(unittest.TestCase):
         new_path = legofy.get_new_filename(FLOWER_PATH, '.gif')
         self.assertTrue(new_path.endswith('_lego.gif'))
 
+    def test_lego_palette_structure(self):
+        """Validate lego palettes structured in 3's."""
+        legos = legofy.palettes.legos()
+        for palette in legos:
+            self.assertFalse(len(legos[palette]) % 3)
+
+    def test_lego_palette_length(self):
+        """PIL palette requires 768 ints (256 colors * RGB)."""
+        legos = legofy.palettes.legos()
+        for palette in legos:
+            self.assertTrue(len(legofy.palettes.extend_palette(palette)) == 768)
+
 
 class Failures(unittest.TestCase):
     '''Make sure things fail when they should'''
