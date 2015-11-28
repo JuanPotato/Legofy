@@ -89,14 +89,7 @@ def get_lego_palette(palette_mode):
     '''Gets the palette for the specified lego palette mode'''
     legos = palettes.legos()
     palette = legos[palette_mode]
-
-    # Repeat the first color so that the palette has 256 colors
-    first_color = palette[0:3]
-    missing_colors = int(256 - len(palette)/3)
-    padding = first_color * missing_colors
-    palette += padding
-    assert len(palette) == 768
-    return palette
+    return palettes.extend_palette(palette)
 
 
 def apply_thumbnail_effects(image, palette, dither):

@@ -15,6 +15,7 @@ Color mapping source;
 
 See README for project details.
 """
+from __future__ import division
 
 
 LEGOS = {
@@ -83,6 +84,15 @@ LEGOS = {
         '026': [0x02, 0x02, 0x02]
         },
     }
+
+
+def extend_palette(palette, colors=256, rgb=3):
+    """Extend palette colors to 256 rgb sets."""
+    missing_colors = colors - len(palette)//rgb
+    if missing_colors > 0:
+        first_color = palette[:rgb]
+        palette += first_color * missing_colors
+    return palette[:colors*rgb]
 
 
 def legos():
