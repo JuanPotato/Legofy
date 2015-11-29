@@ -1,7 +1,13 @@
 # Contributing
 ## Sending a pull request
-Please test the **Legofy** script first before sending a pull request to make sure you didn't mess up
-
+Please do things under this text before sending the pull request 
+* Fork
+* Create feature branch
+* Add tests for new feature
+* Make sure Travis CI passes (You can activate Travis CI for your own fork)
+* Make sure coverage does not lower
+* (Merge commits into one)
+* Send the pull request
 ## Contributors
 * Juan Potato / @JuanPotato
 * Piotr Wołoszyn / @CasualBeer
