@@ -73,3 +73,7 @@ There is another one palette, mono, with only 2 colors (black and white...). It'
 3. Open a command line and navigate to the project folder
 4. Run `python setup.py install` while in the project folder
 5. You can now use Legofy anywhere, see [usage](#usage) for more help
+
+### Forks
+
+* JavaScript: [Legofy](https://github.com/Wildhoney/Legofy)
