@@ -56,13 +56,9 @@ There is another one palette, mono, with only 2 colors (black and white...). It'
 
 
 ### Troubleshooting
-#### Mac
- * `ValueError: --enable-zlib requested but zlib not found, aborting.`
-   * try `xcode-select --install` in the terminal
- * `ValueError: --enable-jpeg requested but jpeg not found, aborting.`
-   * install [libjpeg](http://ethan.tira-thompson.com/Mac_OS_X_Ports.html)
- * `Incompatible library version: libtiff.X requires version X or later, but libjpeg.X provides version X`
-   * Follow instructions [here](http://stackoverflow.com/a/22738746/3390376)
+ * [Mac](http://pillow.readthedocs.org/en/3.0.x/installation.html#os-x-installation)
+ * [Linux](http://pillow.readthedocs.org/en/3.0.x/installation.html#linux-installation)
+ * [Windows](http://pillow.readthedocs.org/en/3.0.x/installation.html#windows-installation)
 
 ### Installation
 1. Download and install all requirements
