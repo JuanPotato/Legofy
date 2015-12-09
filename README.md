@@ -1,4 +1,4 @@
-# Legofy [![Build Status](https://travis-ci.org/JuanPotato/Legofy.svg?branch=master)](https://travis-ci.org/JuanPotato/Legofy) [![Coverage Status](https://coveralls.io/repos/JuanPotato/Legofy/badge.svg?branch=master&service=github)](https://coveralls.io/github/JuanPotato/Legofy?branch=master) [![Code Health](https://landscape.io/github/JuanPotato/Legofy/master/landscape.svg?style=flat)](https://landscape.io/github/JuanPotato/Legofy/master) [![Join the chat at https://gitter.im/JuanPotato/Legofy](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/JuanPotato/Legofy?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+# Legofy [![Build Status](https://travis-ci.org/JuanPotato/Legofy.svg?branch=master)](https://travis-ci.org/JuanPotato/Legofy) [![PyPI Downloads](https://img.shields.io/pypi/dm/legofy.svg)](https://pypi.python.org/pypi/legofy) [![PyPI version](https://img.shields.io/pypi/v/legofy.svg)](https://pypi.python.org/pypi/legofy) [![License](https://img.shields.io/pypi/l/legofy.svg)](https://pypi.python.org/pypi/legofy) [![Coverage Status](https://coveralls.io/repos/JuanPotato/Legofy/badge.svg?branch=master&service=github)](https://coveralls.io/github/JuanPotato/Legofy?branch=master) [![Code Health](https://landscape.io/github/JuanPotato/Legofy/master/landscape.svg?style=flat)](https://landscape.io/github/JuanPotato/Legofy/master) [![Join the chat at https://gitter.im/JuanPotato/Legofy](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/JuanPotato/Legofy?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 
 ### What is it?
@@ -12,8 +12,8 @@ Legofy is a python program that takes a static image or gif and makes it so that
 
 ### Requirements
 * Python
-* Python modules: Pillow, click
-* imagemagick
+* Python modules: Pillow, click # pip will install these automatically if using `pip install legofy`
+* imagemagick # not needed but recommended
 
 ### Bugs
 If you find a bug:
@@ -22,12 +22,15 @@ If you find a bug:
 
 ### Quickstart
 ```shell
+$ pip install legofy
+```
+or install from source
+```shell
 $ git clone https://github.com/JuanPotato/Legofy.git
 $ cd Legofy
 $ python setup.py install
-$ legofy image.jpg # anywhere
 ```
-Wait! I don't know what any of this means? [Detailed instructions](#installation)
+Wait! I don't know what any of this means? Use pip then, or if you really want to install from source [have some help.](#installation)
 
 ### Usage
 ```
