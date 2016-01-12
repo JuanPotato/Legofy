@@ -49,7 +49,7 @@ Options:
 #### Palette
 There are 3 palettes: solid (33 colors), transparent (14 colors) and effects (4 colors).
 You can use one of them or all the 3.
-```
+```shell
 $ legofy --palette solid image.jpg
 $ legofy --palette transparent image.jpg
 $ legofy --palette effects image.jpg
