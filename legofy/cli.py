@@ -17,7 +17,9 @@ from legofy import palettes
 @click.option('--palette', default=None,
               type=click.Choice(palettes.legos().keys()),
               help='Palette to use based on real Lego colors.')
-def main(image, output, size, palette, dither):
+@click.option('--stats/--statistics', default=False,
+              help='Print statistics of brick count with colors.')
+def main(image, output, size, palette, dither, stats):
     '''Legofy an image!'''
     legofy.main(image, output_path=output, size=size,
-                palette_mode=palette, dither=dither)
+                palette_mode=palette, dither=dither, stats=stats)
