@@ -152,6 +152,7 @@ def legos():
     """Build flattened lego palettes."""
     return _flatten_palettes(LEGOS.copy())
 
+
 def _flatten_palettes(palettes):
     """Convert palette mappings into color list."""
     flattened = {}

@@ -134,10 +134,10 @@ def legofy_gif(base_image, brick_image, output_path, size, palette_mode, dither,
         if palette_mode:
             palette = get_lego_palette(palette_mode)
             frame = apply_thumbnail_effects(frame, palette, dither)
+        
         new_frame, brick_stats = make_lego_image(frame, brick_image)
         frames_converted.append(new_frame)
-
-        if stats == True:
+        if stats:
             print(brick_stats)
 
     # Make use of images to gif function
@@ -150,9 +150,11 @@ def legofy_image(base_image, brick_image, output_path, size, palette_mode, dithe
     if palette_mode:
         palette = get_lego_palette(palette_mode)
         base_image = apply_thumbnail_effects(base_image, palette, dither)
+    
     lego_image, brick_stats = make_lego_image(base_image, brick_image)
-    if stats == True:
+    if stats:
         print(brick_stats)
+    
     lego_image.save(output_path)
 
 
