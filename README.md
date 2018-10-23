@@ -73,6 +73,14 @@ There is another one palette, mono, with only 2 colors (black and white...). It'
 4. Run `python setup.py install` while in the project folder
 5. You can now use Legofy anywhere, see [usage](#usage) for more help
 
+
+#### Fedora Linux and distro type installation
+Legofy is official fedora repository part, to install just type:
+
+`sudo dnf install legofy -y`
+
+
+
 ### Forks
 
 * JavaScript: [Legofy](https://github.com/Wildhoney/Legofy)
