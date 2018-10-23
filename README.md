@@ -76,3 +76,7 @@ There is another one palette, mono, with only 2 colors (black and white...). It'
 ### Forks
 
 * JavaScript: [Legofy](https://github.com/Wildhoney/Legofy)
+
+
+# License
+Legofy is open-source released under the permisive MIT license. See LICENSE.txt included with the distribution for details.
