@@ -120,7 +120,7 @@ def legofy_gif(base_image, brick_image, output_path, size, palette_mode, dither)
         print("Converting frame number " + str(i))
 
         new_size = get_new_size(frame, brick_image, size)
-        frame.thumbnail(new_size, Image.ANTIALIAS)
+        frame = frame.resize(new_size, Image.ANTIALIAS)
         if palette_mode:
             palette = get_lego_palette(palette_mode)
             frame = apply_thumbnail_effects(frame, palette, dither)
@@ -133,7 +133,8 @@ def legofy_gif(base_image, brick_image, output_path, size, palette_mode, dither)
 def legofy_image(base_image, brick_image, output_path, size, palette_mode, dither):
     '''Legofy an image'''
     new_size = get_new_size(base_image, brick_image, size)
-    base_image.thumbnail(new_size, Image.ANTIALIAS)
+    base_image = base_image.resize(new_size, Image.ANTIALIAS)
+
     if palette_mode:
         palette = get_lego_palette(palette_mode)
         base_image = apply_thumbnail_effects(base_image, palette, dither)
