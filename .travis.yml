@@ -9,11 +9,10 @@ addons:
     - imagemagick
 
 python:
-  - "3.3"
-  - "3.4"
-  - "3.5"
-  - "3.5-dev" # 3.5 development branch
-  - "nightly" # currently points to 3.6-dev
+  - "3.6"
+  - "3.7"
+  - "3.8"
+  - "3.9"
 
 install:
   - pip install --quiet -r requirements.txt
