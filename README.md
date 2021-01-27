@@ -43,6 +43,7 @@ Options:
   --dither / --no-dither          Use dither algorithm to spread the color approximation error.
   --palette [all|effects|mono|solid|transparent]
                                   Palette to use based on real Lego colors.
+  --stats                         Shows the count of brick colors.
   --help                          Show this message and exit.
 ```
 
